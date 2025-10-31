@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Estilos y bootstrap-->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="/Bootstrap/js/bootstrap.min.js"></script>
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/f50be4e936.js" crossorigin="anonymous"></script>
+
+    <!--Fuente-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+    </style>
+
+    <!--Scripts-->
+    <script src="/backend/scripts/miembros.js"></script>
+
+    <title>Miembros</title>
+</head>
+
+<body>
+    <!--
+    ------ HEADER
+    -->
+
+    <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html"><img src="../../assets/img/pleasantvilleIcon.png"
+                    alt="logoCICVIA" width="75px" height="75px">Pleasantville Theater Group</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-right">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center active" href="#">Miembros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Producciones y obras</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Gestión financiera</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Patrocinadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Reportes</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- https://colorhunt.co/palette/a8bba3f7f4eaebd9d1b87c4c
+    ------ FIN HEADER
+    -->
+
+
+    <!--ABCC-->
+    <main id="main">
+        <div class="container" style="padding: 2% 0;">
+            <!--INSERCION Y BUSQUEDA DE DATOS-->
+            <div class="d-flex justify-content-end">
+                <div class="p-2">
+                    <button type="button" class="btn btn-primary ms-3" data-bs-toggle="modal"
+                        data-bs-target="#modalAgregarMiembro">
+                        <i class="fa-solid fa-plus"></i>Agregar
+                    </button>
+                </div>
+
+                <div class="p-2">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Buscar miembro..."
+                            aria-label="Buscar miembro" />
+                    </form>
+                </div>
+            </div>
+
+            <!--MUESTREO DE DATOS-->
+
+            <div class="container" id="mostrarMiembros">
+                <!--CONTENIDO CARGADO-->
+            </div>
+            <!--FIN MUESTREO MIEMBROS-->
+
+        </div>
+
+        <!-- MODAL AGREGAR MIEMBRO -->
+        <div class="modal fade" id="modalAgregarMiembro" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar miembro</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="../../backend/controllers/procesar_alta.php">
+                            <div class="form-group">
+                                <label for="formNombre">Nombre</label>
+                                <input type="text" class="form-control" id="formNombre" name="formNombre"
+                                    placeholder="Example input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formPrimerAp">Primer apellido</label>
+                                <input type="text" class="form-control" id="formPrimerAp" name="formPrimerAp"
+                                    placeholder="Another input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formSegundoAp">Segundo apellido</label>
+                                <input type="text" class="form-control" id="formSegundoAp" name="formSegundoAp"
+                                    placeholder="Another input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formTelefono">Telefono</label>
+                                <input type="text" class="form-control" id="formTelefono" name="formTelefono"
+                                    placeholder="Another input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formEmail">Email</label>
+                                <input type="text" class="form-control" id="formEmail" name="formEmail"
+                                    placeholder="Another input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formNumCasa">Num. Casa</label>
+                                <input type="text" class="form-control" id="formNumCasa" name="formNumCasa"
+                                    placeholder="Another input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formCalle">Calle</label>
+                                <input type="text" class="form-control" id="formCalle" name="formCalle"
+                                    placeholder="Another input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formColonia">Colonia</label>
+                                <input type="text" class="form-control" id="formColonia" name="formColonia"
+                                    placeholder="Another input">
+                            </div>
+                            <div class="form-group">
+                                <label for="formCP">Codigo Postal</label>
+                                <input type="text" class="form-control" id="formCP" name="formCP"
+                                    placeholder="Another input">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Agregar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIN MODAL -->
+
+        <!-- MODAL DETALLE MIEMBRO -->
+        <div class="modal fade" id="modalDetalleMiembro" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalle de miembro</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="formNombreDetalle">Nombre</label>
+                                <input type="text" class="form-control" id="formNombreDetalle" name="formNombre" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="formPrimerApDetalle">Primer apellido</label>
+                                <input type="text" class="form-control" id="formPrimerApDetalle" name="formPrimerAp" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="formSegundoApDetalle">Segundo apellido</label>
+                                <input type="text" class="form-control" id="formSegundoApDetalle" name="formSegundoAp"
+                                    disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="formTelefonoDetalle">Teléfono</label>
+                                <input type="text" class="form-control" id="formTelefonoDetalle" name="formTelefono" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="formEmailDetalle">Email</label>
+                                <input type="text" class="form-control" id="formEmailDetalle" name="formEmail" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="formNumCasaDetalle">Num. Casa</label>
+                                <input type="text" class="form-control" id="formNumCasaDetalle" name="formNumCasa" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="formCalleDetalle">Calle</label>
+                                <input type="text" class="form-control" id="formCalleDetalle" name="formCalle" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="formColoniaDetalle">Colonia</label>
+                                <input type="text" class="form-control" id="formColoniaDetalle" name="formColonia" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="formCPDetalle">Código Postal</label>
+                                <input type="text" class="form-control" id="formCPDetalle" name="formCP" disabled>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--FIN MODAL-->
+
+        <!-- MODAL MODIFICAR MIEMBRO -->
+        <div class="modal fade" id="modalModificarMiembro" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Cambiar miembro</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="post" action="../../backend/controllers/procesar_cambio.php">
+                            <div class="form-group">
+                                <label for="formId">ID</label>
+                                <input type="text" class="form-control" id="formId" name="formId" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="formNombreModificar">Nombre</label>
+                                <input type="text" class="form-control" id="formNombreModificar" name="formNombreModificar" >
+                            </div>
+                            <div class="form-group">
+                                <label for="formNombreModificar">Primer apellido</label>
+                                <input type="text" class="form-control" id="formPrimerApModificar" name="formPrimerApModificar" >
+                            </div>
+                            <div class="form-group">
+                                <label for="formNombreModificar">Segundo apellido</label>
+                                <input type="text" class="form-control" id="formSegundoApModificar" name="formSegundoApModificar" >
+                            </div>
+                            <div class="form-group">
+                                <label for="formNombreModificar">Teléfono</label>
+                                <input type="text" class="form-control" id="formTelefonoModificar" name="formTelefonoModificar" >
+                            </div>
+                            <div class="form-group">
+                                <label for="formEmailModificar">Email</label>
+                                <input type="text" class="form-control" id="formEmailModificar" name="formEmailModificar" >
+                            </div>
+                            <div class="form-group">
+                                <label for="formNumCasaModificar">Num. Casa</label>
+                                <input type="text" class="form-control" id="formNumCasaModificar" name="formNumCasaModificar" >
+                            </div>
+                            <div class="form-group">
+                                <label for="formCalleModificar">Calle</label>
+                                <input type="text" class="form-control" id="formCalleModificar" name="formCalleModificar" >
+                            </div>
+                            <div class="form-group">
+                                <label for="formColoniaModificar">Colonia</label>
+                                <input type="text" class="form-control" id="formColoniaModificar" name="formColoniaModificar" >
+                            </div>
+                            <div class="form-group">
+                                <label for="formCPModificar">Código Postal</label>
+                                <input type="text" class="form-control" id="formCPModificar" name="formCPModificar" >
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning">Modificar</button>  
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--FIN MODAL-->
+
+    </main>
+
+    <!--FIN ABCC-->
+
+    <script>
+        // Esperar DOM cargado para mostrar miembros
+        document.addEventListener('DOMContentLoaded', mostrarMiembros);
+        document.getElementById("")
+    </script>
+
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+</body>
+
+</html>
