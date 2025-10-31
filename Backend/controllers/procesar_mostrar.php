@@ -1,9 +1,10 @@
 <?php
 
-include_once('./miembro_dao.php');
+include_once('miembro_dao.php');
 
-$alumnoDAO = new MiembroDAO();
-$result = $alumnoDAO->mostrarMiembros();
+
+$miembroDAO = new MiembroDAO();
+$result = $miembroDAO->mostrarMiembros();
 $datos = [];
 
 while ($row = mysqli_fetch_assoc($result)) {

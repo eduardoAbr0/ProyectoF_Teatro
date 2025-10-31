@@ -1,7 +1,7 @@
 <?php
 
-include_once('../database/conexion_bd_escuela.php');
-include_once('../model/model_miembro.php');
+include_once('../database/conexion_bd_teatro.php');
+include_once('../models/model_miembro.php');
 
 class MiembroDAO
 {
@@ -48,7 +48,6 @@ class MiembroDAO
     public function cambioMiembro($miembro)
     {
         //INSTRUCCION SQL A EXECUTAR
-        // INSTRUCCIÓN SQL A EJECUTAR
         $sql = "UPDATE Miembros SET Nombre = ?, Primer_apellido = ?, Segundo_apellido = ?, Telefono = ?, Email = ?, NumCasa = ?, Calle = ?, Colonia = ?, Codigo_postal = ?
             WHERE id = ?";
 
