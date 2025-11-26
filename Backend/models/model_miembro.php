@@ -1,41 +1,51 @@
 <?php
 
-class miembro
+class Miembro
 {   
-    private $id;
+    private $id_miembro;
     private $nombre;
-    private $p_apellido;
-    private $s_apellido;
+    private $primer_apellido;
+    private $segundo_apellido;
     private $telefono;
     private $email;
-    private $numCasa;
+    private $numero_casa;
     private $calle;
     private $colonia;
     private $cp;
-    private $fechaIng;
-    private $cuota;
+    private $fecha_ingreso;
+    private $estado_membresia;
+    private $fecha_pago_cuota;
 
-    public function __construct($nombre,  $p_apellido,  $s_apellido,  $telefono,  $email,  $numCasa,  $calle,  $colonia,  $cp)
-    {
+    public function __construct(
+        $nombre,
+        $primer_apellido,
+        $segundo_apellido,
+        $telefono,
+        $email,
+        $numero_casa,
+        $calle,
+        $colonia,
+        $cp
+    ) {
         $this->nombre = $nombre;
-        $this->p_apellido = $p_apellido;
-        $this->s_apellido = $s_apellido;
+        $this->primer_apellido = $primer_apellido;
+        $this->segundo_apellido = $segundo_apellido;
         $this->telefono = $telefono;
         $this->email = $email;
-        $this->numCasa = $numCasa;
+        $this->numero_casa = $numero_casa;
         $this->calle = $calle;
         $this->colonia = $colonia;
         $this->cp = $cp;
     }
 
-    public function setId($id)
+    public function getIdMiembro()
     {
-        $this->id = $id;
+        return $this->id_miembro;
     }
 
-    public function getId()
+    public function setIdMiembro($id)
     {
-        return $this->id;
+        $this->id_miembro = $id;
     }
 
     public function getNombre()
@@ -43,14 +53,29 @@ class miembro
         return $this->nombre;
     }
 
-    public function getPApellido()
+    public function setNombre($nombre)
     {
-        return $this->p_apellido;
+        $this->nombre = $nombre;
     }
 
-    public function getSApellido()
+    public function getPrimerApellido()
     {
-        return $this->s_apellido;
+        return $this->primer_apellido;
+    }
+
+    public function setPrimerApellido($primer_apellido)
+    {
+        $this->primer_apellido = $primer_apellido;
+    }
+
+    public function getSegundoApellido()
+    {
+        return $this->segundo_apellido;
+    }
+
+    public function setSegundoApellido($segundo_apellido)
+    {
+        $this->segundo_apellido = $segundo_apellido;
     }
 
     public function getTelefono()
@@ -58,14 +83,29 @@ class miembro
         return $this->telefono;
     }
 
+    public function setTelefono($telefono)
+    {
+        $this->telefono = $telefono;
+    }
+
     public function getEmail()
     {
         return $this->email;
     }
 
-    public function getNumCasa()
+    public function setEmail($email)
     {
-        return $this->numCasa;
+        $this->email = $email;
+    }
+
+    public function getNumeroCasa()
+    {
+        return $this->numero_casa;
+    }
+
+    public function setNumeroCasa($numero_casa)
+    {
+        $this->numero_casa = $numero_casa;
     }
 
     public function getCalle()
@@ -73,9 +113,19 @@ class miembro
         return $this->calle;
     }
 
+    public function setCalle($calle)
+    {
+        $this->calle = $calle;
+    }
+
     public function getColonia()
     {
         return $this->colonia;
+    }
+
+    public function setColonia($colonia)
+    {
+        $this->colonia = $colonia;
     }
 
     public function getCp()
@@ -83,4 +133,41 @@ class miembro
         return $this->cp;
     }
 
+    public function setCp($cp)
+    {
+        $this->cp = $cp;
+    }
+
+    public function getFechaIngreso()
+    {
+        return $this->fecha_ingreso;
+    }
+
+    public function setFechaIngreso($fecha_ingreso)
+    {
+        $this->fecha_ingreso = $fecha_ingreso;
+    }
+
+    public function getEstadoMembresia()
+    {
+        return $this->estado_membresia;
+    }
+
+    public function setEstadoMembresia($estado)
+    {
+        $this->estado_membresia = $estado;
+    }
+
+    public function getFechaPagoCuota()
+    {
+        return $this->fecha_pago_cuota;
+    }
+
+    public function setFechaPagoCuota($fecha_pago)
+    {
+        $this->fecha_pago_cuota = $fecha_pago;
+    }
 }
+
+?>
+
