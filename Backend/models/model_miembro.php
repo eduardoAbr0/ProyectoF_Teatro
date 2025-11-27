@@ -25,7 +25,9 @@ class Miembro
         $numero_casa,
         $calle,
         $colonia,
-        $cp
+        $cp,
+        $estado_membresia,
+        $fecha_pago_cuota = null
     ) {
         $this->nombre = $nombre;
         $this->primer_apellido = $primer_apellido;
@@ -36,6 +38,8 @@ class Miembro
         $this->calle = $calle;
         $this->colonia = $colonia;
         $this->cp = $cp;
+        $this->estado_membresia = $estado_membresia;
+        $this->fecha_pago_cuota = $fecha_pago_cuota;
     }
 
     public function getIdMiembro()

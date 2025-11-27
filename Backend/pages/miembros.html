@@ -8,7 +8,7 @@
     <!--Estilos y bootstrap-->
     <link rel="stylesheet" href="../../Frontend/Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../Frontend/css/style.css">
-    <script src="../../Frontend/Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../Frontend/Bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/f50be4e936.js" crossorigin="anonymous"></script>
@@ -19,7 +19,9 @@
     </style>
 
     <!--Scripts-->
+    <script src="../librarys/livevalidation_standalone.js"></script>
     <script src="../scripts/miembros.js"></script>
+    <script src="../scripts/validacionMiembros.js"></script>
 
     <title>Miembros</title>
 </head>
@@ -98,60 +100,80 @@
 
         </div>
 
-        <!-- MODAL AGREGAR MIEMBRO -->
         <div class="modal fade" id="modalAgregarMiembro" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar miembro</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="../../backend/controllers/procesar_alta.php">
-                            <div class="form-group">
+                        <form id="formAgregarMiembro" onsubmit="agregar(event)" method="POST">
+
+                            <h6 class="text-muted mb-3">Datos Personales</h6>
+                            <div class="form-group mb-3">
                                 <label for="formNombre">Nombre</label>
-                                <input type="text" class="form-control" id="formNombre" name="formNombre"
-                                    placeholder="Example input">
+                                <input type="text" class="form-control" id="formNombre" name="formNombre" required>
                             </div>
-                            <div class="form-group">
-                                <label for="formPrimerAp">Primer apellido</label>
-                                <input type="text" class="form-control" id="formPrimerAp" name="formPrimerAp"
-                                    placeholder="Another input">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="formPrimerAp">Primer apellido</label>
+                                    <input type="text" class="form-control" id="formPrimerAp" name="formPrimerAp"
+                                        required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="formSegundoAp">Segundo apellido</label>
+                                    <input type="text" class="form-control" id="formSegundoAp" name="formSegundoAp"
+                                        required>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formSegundoAp">Segundo apellido</label>
-                                <input type="text" class="form-control" id="formSegundoAp" name="formSegundoAp"
-                                    placeholder="Another input">
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="formTelefono">Teléfono</label>
+                                    <input type="text" class="form-control" id="formTelefono" name="formTelefono"
+                                        required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="formEmail">Email</label>
+                                    <input type="text" class="form-control" id="formEmail" name="formEmail" required>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formTelefono">Telefono</label>
-                                <input type="text" class="form-control" id="formTelefono" name="formTelefono"
-                                    placeholder="Another input">
+                            <hr>
+                            <h6 class="text-muted mb-3">Dirección</h6>
+                            <div class="row">
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formNumCasa">Num. Casa</label>
+                                    <input type="text" class="form-control" id="formNumCasa" name="formNumCasa">
+                                </div>
+                                <div class="col-md-8 form-group mb-3">
+                                    <label for="formCalle">Calle</label>
+                                    <input type="text" class="form-control" id="formCalle" name="formCalle">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formEmail">Email</label>
-                                <input type="text" class="form-control" id="formEmail" name="formEmail"
-                                    placeholder="Another input">
+                            <div class="row">
+                                <div class="col-md-8 form-group mb-3">
+                                    <label for="formColonia">Colonia</label>
+                                    <input type="text" class="form-control" id="formColonia" name="formColonia">
+                                </div>
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formCP">Código Postal</label>
+                                    <input type="text" class="form-control" id="formCP" name="formCP">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formNumCasa">Num. Casa</label>
-                                <input type="text" class="form-control" id="formNumCasa" name="formNumCasa"
-                                    placeholder="Another input">
-                            </div>
-                            <div class="form-group">
-                                <label for="formCalle">Calle</label>
-                                <input type="text" class="form-control" id="formCalle" name="formCalle"
-                                    placeholder="Another input">
-                            </div>
-                            <div class="form-group">
-                                <label for="formColonia">Colonia</label>
-                                <input type="text" class="form-control" id="formColonia" name="formColonia"
-                                    placeholder="Another input">
-                            </div>
-                            <div class="form-group">
-                                <label for="formCP">Codigo Postal</label>
-                                <input type="text" class="form-control" id="formCP" name="formCP"
-                                    placeholder="Another input">
+                            <hr>
+                            <h6 class="text-muted mb-3">Membresía</h6>
+                            <div class="row">
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formEstadoMembresia">Estado membresía</label>
+                                    <select class="form-select" id="formEstadoMembresia" name="formEstadoMembresia">
+                                        <option selected value="Sin pagar">Sin pagar</option>
+                                        <option value="Pagada">Pagada</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formFechaPago">Fecha Pago Cuota</label>
+                                    <input type="date" class="form-control" id="formFechaPago" name="formFechaPago">
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -175,44 +197,79 @@
 
                     <div class="modal-body">
                         <form>
-                            <div class="form-group">
-                                <label for="formNombreDetalle">Nombre</label>
-                                <input type="text" class="form-control" id="formNombreDetalle" name="formNombre" disabled>
+                            <div class="form-group mb-3">
+                                <label for="formIdDetalle" class="fw-bold">ID</label>
+                                <input type="text" class="form-control" id="formIdDetalle" name="formId" disabled>
                             </div>
-                            <div class="form-group">
-                                <label for="formPrimerApDetalle">Primer apellido</label>
-                                <input type="text" class="form-control" id="formPrimerApDetalle" name="formPrimerAp" disabled>
+                            <div class="row">
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formNombreDetalle">Nombre</label>
+                                    <input type="text" class="form-control" id="formNombreDetalle" name="formNombre"
+                                        disabled>
+                                </div>
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formPrimerApDetalle">Primer apellido</label>
+                                    <input type="text" class="form-control" id="formPrimerApDetalle" name="formPrimerAp"
+                                        disabled>
+                                </div>
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formSegundoApDetalle">Segundo apellido</label>
+                                    <input type="text" class="form-control" id="formSegundoApDetalle"
+                                        name="formSegundoAp" disabled>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formSegundoApDetalle">Segundo apellido</label>
-                                <input type="text" class="form-control" id="formSegundoApDetalle" name="formSegundoAp"
-                                    disabled>
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="formTelefonoDetalle">Teléfono</label>
+                                    <input type="text" class="form-control" id="formTelefonoDetalle" name="formTelefono"
+                                        disabled>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="formEmailDetalle">Email</label>
+                                    <input type="text" class="form-control" id="formEmailDetalle" name="formEmail"
+                                        disabled>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formTelefonoDetalle">Teléfono</label>
-                                <input type="text" class="form-control" id="formTelefonoDetalle" name="formTelefono" disabled>
+                            <div class="row">
+                                <div class="col-md-3 form-group mb-3">
+                                    <label for="formNumCasaDetalle">Num. Casa</label>
+                                    <input type="text" class="form-control" id="formNumCasaDetalle" name="formNumCasa"
+                                        disabled>
+                                </div>
+                                <div class="col-md-9 form-group mb-3">
+                                    <label for="formCalleDetalle">Calle</label>
+                                    <input type="text" class="form-control" id="formCalleDetalle" name="formCalle"
+                                        disabled>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formEmailDetalle">Email</label>
-                                <input type="text" class="form-control" id="formEmailDetalle" name="formEmail" disabled>
+                            <div class="row">
+                                <div class="col-md-8 form-group mb-3">
+                                    <label for="formColoniaDetalle">Colonia</label>
+                                    <input type="text" class="form-control" id="formColoniaDetalle" name="formColonia"
+                                        disabled>
+                                </div>
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formCPDetalle">Código Postal</label>
+                                    <input type="text" class="form-control" id="formCPDetalle" name="formCP" disabled>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formNumCasaDetalle">Num. Casa</label>
-                                <input type="text" class="form-control" id="formNumCasaDetalle" name="formNumCasa" disabled>
+                            <div class="row">
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formEstadoMembresiaDetalle">Estado membresía</label>
+                                    <input type="text" class="form-control" id="formEstadoMembresiaDetalle"
+                                        name="formEstadoMembresia" disabled>
+                                </div>
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formFechaIngresoDetalle">Fecha ingreso</label>
+                                    <input type="text" class="form-control" id="formFechaIngresoDetalle"
+                                        name="formFechaIngreso" disabled>
+                                </div>
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formFechaPagoDetalle">Fecha pago</label>
+                                    <input type="text" class="form-control" id="formFechaPagoDetalle"
+                                        name="formFechaPago" disabled>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formCalleDetalle">Calle</label>
-                                <input type="text" class="form-control" id="formCalleDetalle" name="formCalle" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="formColoniaDetalle">Colonia</label>
-                                <input type="text" class="form-control" id="formColoniaDetalle" name="formColonia" disabled>
-                            </div>
-                            <div class="form-group">
-                                <label for="formCPDetalle">Código Postal</label>
-                                <input type="text" class="form-control" id="formCPDetalle" name="formCP" disabled>
-                            </div>
-
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             </div>
@@ -234,50 +291,76 @@
                     </div>
 
                     <div class="modal-body">
-                        <form method="post" action="../../backend/controllers/procesar_cambio.php">
-                            <div class="form-group">
+                        <form method="post" onsubmit="modificar(event)">
+
+                            <div class="form-group mb-3">
                                 <label for="formId">ID</label>
                                 <input type="text" class="form-control" id="formId" name="formId" readonly>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="formNombreModificar">Nombre</label>
-                                <input type="text" class="form-control" id="formNombreModificar" name="formNombreModificar" >
+                                <input type="text" class="form-control" id="formNombreModificar"
+                                    name="formNombreModificar" required>
                             </div>
-                            <div class="form-group">
-                                <label for="formNombreModificar">Primer apellido</label>
-                                <input type="text" class="form-control" id="formPrimerApModificar" name="formPrimerApModificar" >
+                            <div class="row">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="formPrimerApModificar">Primer apellido</label>
+                                    <input type="text" class="form-control" id="formPrimerApModificar"
+                                        name="formPrimerApModificar" required>
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
+                                    <label for="formSegundoApModificar">Segundo apellido</label>
+                                    <input type="text" class="form-control" id="formSegundoApModificar"
+                                        name="formSegundoApModificar" required>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formNombreModificar">Segundo apellido</label>
-                                <input type="text" class="form-control" id="formSegundoApModificar" name="formSegundoApModificar" >
+                            <div class="form-group mb-3">
+                                <label for="formTelefonoModificar">Teléfono</label>
+                                <input type="text" class="form-control" id="formTelefonoModificar"
+                                    name="formTelefonoModificar">
                             </div>
-                            <div class="form-group">
-                                <label for="formNombreModificar">Teléfono</label>
-                                <input type="text" class="form-control" id="formTelefonoModificar" name="formTelefonoModificar" >
-                            </div>
-                            <div class="form-group">
+                            <div class="form-group mb-3">
                                 <label for="formEmailModificar">Email</label>
-                                <input type="text" class="form-control" id="formEmailModificar" name="formEmailModificar" >
+                                <input type="text" class="form-control" id="formEmailModificar"
+                                    name="formEmailModificar" required>
                             </div>
-                            <div class="form-group">
-                                <label for="formNumCasaModificar">Num. Casa</label>
-                                <input type="text" class="form-control" id="formNumCasaModificar" name="formNumCasaModificar" >
+                            <div class="row">
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formNumCasaModificar">Num. Casa</label>
+                                    <input type="text" class="form-control" id="formNumCasaModificar"
+                                        name="formNumCasaModificar">
+                                </div>
+                                <div class="col-md-8 form-group mb-3">
+                                    <label for="formCalleModificar">Calle</label>
+                                    <input type="text" class="form-control" id="formCalleModificar"
+                                        name="formCalleModificar">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formCalleModificar">Calle</label>
-                                <input type="text" class="form-control" id="formCalleModificar" name="formCalleModificar" >
+                            <div class="row">
+                                <div class="col-md-8 form-group mb-3">
+                                    <label for="formColoniaModificar">Colonia</label>
+                                    <input type="text" class="form-control" id="formColoniaModificar"
+                                        name="formColoniaModificar">
+                                </div>
+                                <div class="col-md-4 form-group mb-3">
+                                    <label for="formCPModificar">Código Postal</label>
+                                    <input type="text" class="form-control" id="formCPModificar" name="formCPModificar">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="formColoniaModificar">Colonia</label>
-                                <input type="text" class="form-control" id="formColoniaModificar" name="formColoniaModificar" >
+                            <div class="form-group mb-3">
+                                <label for="formEstadoMembresiaModificar">Estado membresía</label>
+                                <select class="form-control" id="formEstadoMembresiaModificar"
+                                    name="formEstadoMembresiaModificar">
+                                    <option value="Sin pagar">Sin pagar</option>
+                                    <option value="Pagada">Pagada</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label for="formCPModificar">Código Postal</label>
-                                <input type="text" class="form-control" id="formCPModificar" name="formCPModificar" >
+                            <div class="form-group mb-3">
+                                <label for="formFechaPago">Fecha Pago Cuota</label>
+                                <input type="date" class="form-control" id="formFechaPagoModificar" name="formFechaPagoModificar">
                             </div>
-
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-warning">Modificar</button>  
+                                <button type="submit" class="btn btn-warning">Modificar</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             </div>
                         </form>
@@ -288,6 +371,23 @@
         </div>
         <!--FIN MODAL-->
 
+        <!-- TOAST ADVERTENCIA -->
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="toastAdvertencia" class="toast text-bg-danger border-0" role="alert" aria-live="assertive"
+                aria-atomic="true">
+                <div class="d-flex">
+                    <div id="toastMensaje" class="toast-body">
+                        <i class="fa-solid fa-circle-exclamation me-2"></i>
+                        <span id="toastMensaje">Error</span>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN TOAST ADVERTENCIA -->
     </main>
 
     <!--FIN ABCC-->
@@ -295,13 +395,36 @@
     <script>
         // Esperar DOM cargado para mostrar miembros
         document.addEventListener('DOMContentLoaded', mostrarMiembros);
-    </script>
 
-    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            function vincularEstadoFecha(seleccion, fecha) {
+                const select = document.getElementById(seleccion);
+                const fech = document.getElementById(fecha);
+
+                if (select && fech) {
+                    function evaluar() {
+                        if (select.value === 'Pagada') {
+                            fech.disabled = false;
+                        } else {
+                            fech.disabled = true;
+                            fech.value = '';
+                        }
+                    }
+                    select.addEventListener('change', evaluar);
+                    evaluar();
+                }
+            }
+
+            vincularEstadoFecha('formEstadoMembresia', 'formFechaPago');
+            vincularEstadoFecha('formEstadoMembresiaModificar', 'formFechaPagoModificar');
+        });
+
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+
     </script>
 </body>
 

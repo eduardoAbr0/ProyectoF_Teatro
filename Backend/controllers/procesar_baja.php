@@ -1,10 +1,21 @@
 <?php
 include_once('miembro_dao.php');
 
-$miembroDAO = new MiembroDAO();
+$json = file_get_contents('php://input');
+$datos = json_decode($json, true);
 
-$data = json_decode(file_get_contents("php://input"), true);
-$id = $data['id'];
+$id = $datos['id_miembro'];
 
-$result = $miembroDAO->eliminarMiembro($id);
+try {
+    if ($id) {
+        $dao = new MiembroDAO();
+        $dao->eliminarMiembro($id);
+        echo json_encode(["status" => "exito", "message" => "Miembro eliminado correctamente."]);
+    } else {
+        echo json_encode(["status" => "error", "message" => "ID Vacio."]);
+    }
+} catch (Exception $e) {
+    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+}
+
 ?>

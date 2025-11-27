@@ -51,3 +51,20 @@
   transform-origin: bottom right;
 }
 
+/* Estilo para mensajes de Libreria Validation */
+/*Mensaje fallo*/
+.LV_validation_message.LV_invalid {
+    color: #dc3545;
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+    font-weight: bold;
+}
+
+/* Mensaje exito*/
+.LV_validation_message.LV_valid {
+    color: #198754; 
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+}
+
+

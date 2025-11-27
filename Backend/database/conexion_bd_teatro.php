@@ -12,10 +12,7 @@
 
             if(!$this->conexion){
                 die ("ERROR EN CONEXION A BD" . mysqli_connect_error());
-                echo "ERROR CONEXION";
             }
-
-            echo "BD CONECTADA";
         }
 
         public function getConexion(){

@@ -18,24 +18,28 @@ class MiembroDAO
     public function agregarMiembro($miembro)
     {
         //INSTRUCCION SQL A EXECUTAR
-        $sql = "INSERT INTO Miembros (Nombre, Primer_apellido, Segundo_apellido, Telefono, Email, NumCasa, Calle, Colonia, Codigo_postal)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Miembros (nombre, primer_apellido, segundo_apellido, telefono, email, numero_casa, calle, colonia, cp, estado_membresia, fecha_pago_cuota)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         //INSTRUCCION STATEMENT
         $stmt = $this->conexion->getConexion()->prepare($sql);
 
         //ASIGNACION DE VALORES PARA EL PREPARE STATEMENT
         $nombre = $miembro->getNombre();
-        $pAp = $miembro->getPApellido();
-        $sAp = $miembro->getSApellido();
+        $pAp = $miembro->getPrimerApellido();
+        $sAp = $miembro->getSegundoApellido();
         $tel = $miembro->getTelefono();
         $email = $miembro->getEmail();
-        $numC = $miembro->getNumCasa();
+        $numC = $miembro->getNumeroCasa();
         $call = $miembro->getCalle();
         $col = $miembro->getColonia();
         $cp = $miembro->getCp();
-        $stmt->bind_param("sssssissi", $nombre, $pAp, $sAp, $tel, $email, $numC, $call, $col, $cp);
+        $estado = $miembro->getEstadoMembresia();
+        $fechaPago = $miembro->getFechaPagoCuota();
+        if ($fechaPago === '')
+            $fechaPago = null;
 
+        $stmt->bind_param("sssssississ", $nombre, $pAp, $sAp, $tel, $email, $numC, $call, $col, $cp, $estado, $fechaPago);
 
         $res = $stmt->execute();
 
@@ -48,28 +52,31 @@ class MiembroDAO
     public function cambioMiembro($miembro)
     {
         //INSTRUCCION SQL A EXECUTAR
-        $sql = "UPDATE Miembros SET Nombre = ?, Primer_apellido = ?, Segundo_apellido = ?, Telefono = ?, Email = ?, NumCasa = ?, Calle = ?, Colonia = ?, Codigo_postal = ?
-            WHERE id = ?";
+        $sql = "UPDATE Miembros SET nombre = ?, primer_apellido = ?, segundo_apellido = ?, telefono = ?, email = ?, numero_casa = ?, calle = ?, colonia = ?, cp = ?, estado_membresia = ?, fecha_pago_cuota = ?
+            WHERE id_miembro = ?";
 
         //INSTRUCCION STATEMENT
         $stmt = $this->conexion->getConexion()->prepare($sql);
 
         //ASIGNACION DE VALORES PARA EL PREPARE STATEMENT
         $nombre = $miembro->getNombre();
-        $pAp = $miembro->getPApellido();
-        $sAp = $miembro->getSApellido();
+        $pAp = $miembro->getPrimerApellido();
+        $sAp = $miembro->getSegundoApellido();
         $tel = $miembro->getTelefono();
         $email = $miembro->getEmail();
-        $numC = $miembro->getNumCasa();
+        $numC = $miembro->getNumeroCasa();
         $call = $miembro->getCalle();
         $col = $miembro->getColonia();
         $cp = $miembro->getCp();
-        $id = $miembro->getId();
-        $stmt->bind_param("sssssissii", $nombre, $pAp, $sAp, $tel, $email, $numC, $call, $col, $cp, $id);
+        $estado = $miembro->getEstadoMembresia();
+        $fechaPago = $miembro->getFechaPagoCuota();
+        $id = $miembro->getIdMiembro();
+        if ($fechaPago === '')
+            $fechaPago = null;
 
+        $stmt->bind_param("sssssississi", $nombre, $pAp, $sAp, $tel, $email, $numC, $call, $col, $cp, $estado, $fechaPago, $id);
 
         $res = $stmt->execute();
-
         $stmt->close();
 
         return $res;
@@ -78,25 +85,54 @@ class MiembroDAO
     //BAJAS
     public function eliminarMiembro($id)
     {
-        $sql = "DELETE FROM Miembros WHERE id = '$id'";
+        $sql = "DELETE FROM Miembros WHERE id_miembro = ?";
 
-        $res = mysqli_query($this->conexion->getConexion(), $sql);
+        $stmt = mysqli_prepare($this->conexion->getConexion(), $sql);
+
+        $stmt->bind_param("i", $id);
+
+        $res = $stmt->execute();
+        $stmt->close();
+
         return $res;
     }
 
-    //CONSULTAS
+    // CONSULTAS
     public function mostrarMiembros()
     {
-        //$sql = "SELECT * Alumnos WHERE Num_Control = '$nc'";
-        $sql = "SELECT id, Nombre, Primer_apellido, Segundo_apellido FROM Miembros";
+        $sql = "SELECT id_miembro, nombre, primer_apellido, segundo_apellido FROM Miembros";
 
-        return mysqli_query($this->conexion->getConexion(), $sql);
+        $stmt = mysqli_prepare($this->conexion->getConexion(), $sql);
+
+        $stmt->execute();
+
+        $res = $stmt->get_result();
+        $stmt->close();
+
+        return $res;
     }
 
+    // CONSULTA ESPECÍFICA (Con parámetro ID)
     public function mostrarMiembroDetalle($id)
     {
-        $sql = "SELECT * FROM Miembros WHERE id = '$id'";
+        // 1. Cambiamos la variable '$id' por el marcador '?'
+        $sql = "SELECT * FROM Miembros WHERE id_miembro = ?";
 
-        return mysqli_query($this->conexion->getConexion(), $sql);
+        // 2. Preparamos la conexión
+        $stmt = mysqli_prepare($this->conexion->getConexion(), $sql);
+
+        // 3. Vinculamos el parámetro ("i" = integer)
+        $stmt->bind_param("i", $id);
+
+        // 4. Ejecutamos la consulta
+        $stmt->execute();
+
+        // 5. Obtenemos los resultados para poder leerlos después
+        $res = $stmt->get_result();
+
+        // 6. Cerramos el statement para liberar memoria
+        $stmt->close();
+
+        return $res;
     }
 }
