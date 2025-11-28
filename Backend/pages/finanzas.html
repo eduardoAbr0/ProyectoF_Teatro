@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Estilos y bootstrap-->
+    <link rel="stylesheet" href="../../Frontend/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Frontend/css/style.css">
+    <script src="../../Frontend/Bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/f50be4e936.js" crossorigin="anonymous"></script>
+
+    <!--Fuente-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+    </style>
+
+    <!--Scripts-->
+    <script src="../librarys/livevalidation_standalone.js"></script>
+    <script src="../scripts/finanzas.js"></script>
+
+    <title>Finanzas</title>
+</head>
+
+<body>
+    <!--
+    ------ HEADER
+    -->
+
+    <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html"><img src="../../Frontend/assets/img/pleasantvilleIcon.png"
+                    alt="logoCICVIA" width="75px" height="75px">Pleasantville Theater Group</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-right">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="../pages/miembros.html">Miembros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="../pages/obras.html">Obras</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center active" href="#">Finanzas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Patrocinadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Reportes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- https://colorhunt.co/palette/a8bba3f7f4eaebd9d1b87c4c
+    ------ FIN HEADER
+    -->
+
+    <main id="main" class="container">
+        <div class="container" style="padding: 2% 0;">
+            <!--INSERCION Y BUSQUEDA DE DATOS-->
+            <div class="d-flex justify-content-end">
+                <div class="p-2">
+                    <button type="button" class="btn btn-primary ms-3" data-bs-toggle="modal"
+                        data-bs-target="#modalAgregarFinanza">
+                        <i class="fa-solid fa-plus"></i>Agregar
+                    </button>
+                </div>
+                <div class="p-2">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Buscar finanza..." />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- TABLA PARA MOSTRAR FINANZAS-->
+        <h1>Gestión Financiera</h1>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Tipo</th>
+                                <th>Concepto</th>
+                                <th>Monto</th>
+                                <th>Obra Relacionada</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaFinanzas">
+                            <!--CONTENIDO CARGADO DINÁMICAMENTE DE FINANZAS-->
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- FIN TABLA PARA MOSTRAR FINANZAS-->
+
+    <!--MODAL AGREGAR FINANZA-->
+    <div class="modal fade" id="modalAgregarFinanza">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Agregar finanza</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarFinanza" onsubmit="agregar(event)" method="POST">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Fecha</label>
+                                <input type="date" class="form-control" id="formFecha" name="formFecha" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Tipo</label>
+                                <select class="form-select" name="formTipo" required>
+                                    <option value="Ingreso">Ingreso</option>
+                                    <option value="Gasto">Gasto</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Monto</label>
+                                <input type="number" step="0.01" class="form-control" id="formMonto" name="formMonto"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Obra</label>
+                                <select class="form-select" id="selectObraAgregar" name="formObra">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Concepto</label>
+                            <input type="text" class="form-control" id="formConcepto" name="formConcepto" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FIN MODAL AGREGAR FINANZA-->
+
+    <!-- MODAL MODIFICAR FINANZA -->
+    <div class="modal fade" id="modalModificarFinanza">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modificar finanza</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formModificarFinanza" onsubmit="modificar(event)">
+                        <div class="form-group mb-3">
+                            <label for="modificarId">ID</label>
+                            <input type="text" class="form-control" id="modificarId" name="modificarId" readonly>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Fecha</label>
+                                <input type="date" class="form-control" id="modificarFecha" name="modificarFecha"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Tipo</label>
+                                <select class="form-select" id="modificarTipo" name="modificarTipo" required>
+                                    <option value="Ingreso">Ingreso</option>
+                                    <option value="Gasto">Gasto</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Monto</label>
+                                <input type="number" step="0.01" class="form-control" id="modificarMonto"
+                                    name="modificarMonto" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Obra</label>
+                                <select class="form-select" id="modificarObra" name="modificarObra">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Concepto</label>
+                            <input type="text" class="form-control" id="modificarConcepto" name="modificarConcepto"
+                                required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN MODAL MODIFICAR FINANZA -->
+
+    <!-- MODAL CONFIRMACION ELIMINAR-->
+    <div class="modal fade" id="modalEliminarConfirmar">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h1 class="modal-title">Confirmar eliminacion</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de eliminar este registro financiero?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmarEliminarFinanza">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN MODAL CONFIRMACION ELIMINAR-->
+
+    <!-- TOAST ADVERTENCIA -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastAdvertencia" class="toast text-bg-danger border-0" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div id="toastMensaje" class="toast-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN TOAST ADVERTENCIA -->
+
+    <script>
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+</body>
+
+</html>
