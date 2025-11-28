@@ -44,6 +44,7 @@ class MiembroDAO
         $res = $stmt->execute();
 
         $stmt->close();
+        $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -78,6 +79,7 @@ class MiembroDAO
 
         $res = $stmt->execute();
         $stmt->close();
+        $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -86,14 +88,12 @@ class MiembroDAO
     public function eliminarMiembro($id)
     {
         $sql = "DELETE FROM Miembros WHERE id_miembro = ?";
-
         $stmt = mysqli_prepare($this->conexion->getConexion(), $sql);
-
         $stmt->bind_param("i", $id);
-
         $res = $stmt->execute();
         $stmt->close();
-
+        $this->conexion->getConexion()->close();
+        
         return $res;
     }
 
@@ -101,37 +101,25 @@ class MiembroDAO
     public function mostrarMiembros()
     {
         $sql = "SELECT id_miembro, nombre, primer_apellido, segundo_apellido FROM Miembros";
-
         $stmt = mysqli_prepare($this->conexion->getConexion(), $sql);
-
         $stmt->execute();
-
         $res = $stmt->get_result();
         $stmt->close();
+        $this->conexion->getConexion()->close();
 
         return $res;
     }
 
-    // CONSULTA ESPECÍFICA (Con parámetro ID)
+    // CONSULTA ID
     public function mostrarMiembroDetalle($id)
     {
-        // 1. Cambiamos la variable '$id' por el marcador '?'
         $sql = "SELECT * FROM Miembros WHERE id_miembro = ?";
-
-        // 2. Preparamos la conexión
         $stmt = mysqli_prepare($this->conexion->getConexion(), $sql);
-
-        // 3. Vinculamos el parámetro ("i" = integer)
         $stmt->bind_param("i", $id);
-
-        // 4. Ejecutamos la consulta
         $stmt->execute();
-
-        // 5. Obtenemos los resultados para poder leerlos después
         $res = $stmt->get_result();
-
-        // 6. Cerramos el statement para liberar memoria
         $stmt->close();
+        $this->conexion->getConexion()->close();
 
         return $res;
     }
