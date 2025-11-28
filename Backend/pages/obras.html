@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Estilos y bootstrap-->
+    <link rel="stylesheet" href="../../Frontend/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Frontend/css/style.css">
+    <script src="../../Frontend/Bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/f50be4e936.js" crossorigin="anonymous"></script>
+
+    <!--Fuente-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+    </style>
+
+    <!--Scripts-->
+    <script src="../librarys/livevalidation_standalone.js"></script>
+    <script src="../scripts/obra.js"></script>
+
+    <title>Obras</title>
+</head>
+
+<body>
+    <!--
+    ------ HEADER
+    -->
+
+    <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html"><img src="../../Frontend/assets/img/pleasantvilleIcon.png"
+                    alt="logoCICVIA" width="75px" height="75px">Pleasantville Theater Group</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-right">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center active" href="#">Miembros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Obras</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Gestión financiera</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Patrocinadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Reportes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- https://colorhunt.co/palette/a8bba3f7f4eaebd9d1b87c4c
+    ------ FIN HEADER
+    -->
+
+    <main id="main" class="container mt-5">
+        <div class="container" style="padding: 2% 0;">
+            <!--INSERCION Y BUSQUEDA DE DATOS-->
+            <div class="d-flex justify-content-end">
+                <div class="p-2">
+                    <button type="button" class="btn btn-primary ms-3" data-bs-toggle="modal"
+                        data-bs-target="#modalAgregarObra">
+                        <i class="fa-solid fa-plus"></i>Agregar
+                    </button>
+                </div>
+                <div class="p-2">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Buscar obra..."/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- TABLA PARA MOSTRAR OBRAS-->
+        <h1>Catálogo de Obras</h1>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Autor</th>
+                                <th>Género</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaObras">
+                            <!--CONTENIDO CARGADO DINÁMICAMENTE DE OBRAS-->
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- FIN TABLA PARA MOSTRAR OBRAS-->
+
+    <!--MODAL AGREGAR OBRAS-->
+    <div class="modal fade" id="modalAgregarObra">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Agregar obra</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarObra" onsubmit="agregarObra(event)" method="POST">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Título de la Obra</label>
+                                <input type="text" class="form-control" name="titulo" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Autor</label>
+                                <input type="text" class="form-control" name="autor" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label>Tipo</label>
+                                <select class="form-select" name="tipo">
+                                    <option value="Drama">Drama</option>
+                                    <option value="Comedia">Comedia</option>
+                                    <option value="Musical">Musical</option>
+                                    <option value="Romantica">Romantica</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Num. Actos</label>
+                                <input type="number" class="form-control" name="num_actos">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Año</label>
+                                <input type="number" class="form-control" name="anio" value="2025">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Productor (Miembro)</label>
+                                <select class="form-select" id="selectProductorAgregar" name="productor">
+                                    <option value="">Seleccione un productor...</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Temporada</label>
+                                <select class="form-select" id="selectTemporadaAgregar" name="temporada">
+                                    <option value="Primavera">Primavera</option>
+                                    <option value="Verano">Verano</option>
+                                    <option value="Otoño">Otoño</option>
+                                    <option value="Invierno">Invierno</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Descripción</label>
+                            <textarea class="form-control" name="descripcion" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--FIN MODAL AGREGAR OBRAS-->
+
+
+    <!-- MODAL DETALLE OBRA -->
+    <div class="modal fade" id="modalDetalleObra">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalle de Obra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>ID</label>
+                                <input type="text" class="form-control" id="detalleId" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Título</label>
+                                <input type="text" class="form-control" id="detalleTitulo" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Autor</label>
+                                <input type="text" class="form-control" id="detalleAutor" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Género</label>
+                                <input type="text" class="form-control" id="detalleTipo" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Num. Actos</label>
+                                <input type="text" class="form-control" id="detalleNumActos" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Año</label>
+                                <input type="text" class="form-control" id="detalleAnio" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Productor ID</label>
+                                <input type="text" class="form-control" id="detalleProductor" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Temporada</label>
+                                <input type="text" class="form-control" id="detalleTemporada" disabled>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Descripción</label>
+                            <textarea class="form-control" id="detalleDescripcion" rows="3" disabled></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN MODAL DETALLE OBRA -->
+
+    <!-- MODAL MODIFICAR OBRA -->
+    <div class="modal fade" id="modalModificarObra">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modificar Obra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formModificarObra" onsubmit="modificarObra(event)">
+                        <input type="hidden" id="modificarId" name="id_obra">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Título de la Obra</label>
+                                <input type="text" class="form-control" id="modificarTitulo" name="titulo" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Autor</label>
+                                <input type="text" class="form-control" id="modificarAutor" name="autor" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label>Tipo</label>
+                                <select class="form-select" id="modificarTipo" name="tipo">
+                                    <option value="Drama">Drama</option>
+                                    <option value="Comedia">Comedia</option>
+                                    <option value="Musical">Musical</option>
+                                    <option value="Romantica">Romantica</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Num. Actos</label>
+                                <input type="number" class="form-control" id="modificarNumActos" name="num_actos">
+                            </div>
+                            <div class="col-md-4">
+                                <label>Año</label>
+                                <input type="number" class="form-control" id="modificarAnio" name="anio">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label>Productor (ID Miembro)</label>
+                                <input type="number" class="form-control" id="modificarProductor" name="productor">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Temporada</label>
+                                <select class="form-select" id="modificarTemporada" name="temporada">
+                                    <option value="Primavera">Primavera</option>
+                                    <option value="Verano">Verano</option>
+                                    <option value="Otoño">Otoño</option>
+                                    <option value="Invierno">Invierno</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Descripción</label>
+                            <textarea class="form-control" id="modificarDescripcion" name="descripcion"
+                                rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN MODAL MODIFICAR OBRA -->
+    </main>
+
+    <!-- TOAST ADVERTENCIA -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastAdvertencia" class="toast text-bg-danger border-0" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div id="toastMensaje" class="toast-body">
+                    <i class="fa-solid fa-circle-exclamation me-2"></i>
+                    <span>Error</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN TOAST ADVERTENCIA -->
+
+</body>
+
+</html>
