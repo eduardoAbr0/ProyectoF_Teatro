@@ -15,14 +15,14 @@ $descripcion = isset($_POST['formDescripcion']) ? trim($_POST['formDescripcion']
 
 //VALIDACIONES
 $errores = [];
-if (empty($titulo) || empty($autor) || empty($tipo) || empty($numActos) || empty($anioPresentacion) || empty($temporada) || empty($descripcion)) {
-    $errores[] = "Los campos son obligatorios.";
+if (empty($titulo) || empty($autor) || empty($anioPresentacion) || empty($descripcion)) {
+    $errores[] = "Faltan rellenar campos.";
 }
-if (!empty($numActos) && (!is_numeric($numActos) || strlen($numActos) > 0)) {
-    $errores[] = "El número de actos solo debe tener números.";
+if ((!is_numeric($numActos) || strlen($numActos) < 1) || empty($numActos)) {
+    $errores[] = "Número de actos invalido.";
 }
-if (!empty($anioPresentacion) && (!is_numeric($anioPresentacion) || strlen($anioPresentacion) != 4)) {
-    $errores[] = "El año de presentación debe tener 4 dígitos.";
+if ((!is_numeric($anioPresentacion) || strlen($anioPresentacion) != 4) || empty($anioPresentacion)) {
+    $errores[] = "Año de presentación invalido.";
 }
 
 if (!empty($errores)) {

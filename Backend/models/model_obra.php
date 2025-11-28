@@ -9,7 +9,7 @@ class Obra
     private $num_actos;
     private $anio_presentacion;
     private $temporada;
-    private $productor_fk; 
+    private $productor_fk;
     private $descripcion;
 
     public function __construct(
@@ -52,7 +52,7 @@ class Obra
         $this->titulo = $titulo;
     }
 
-    
+
     public function getAutor()
     {
         return $this->autor;
@@ -102,5 +102,25 @@ class Obra
     public function setTemporada($temporada)
     {
         $this->temporada = $temporada;
+    }
+
+    public function getProductorFk()
+    {
+        return $this->productor_fk;
+    }
+
+    public function setProductorFk($productor_fk)
+    {
+        $this->productor_fk = $productor_fk;
+    }
+
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
     }
 }

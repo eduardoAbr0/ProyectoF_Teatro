@@ -34,7 +34,11 @@ class ObraDAO
         $productor = $obra->getProductorFk();
         $descripcion = $obra->getDescripcion();
 
-        $stmt->bind_param("sssssississ", $titulo, $autor, $tipo, $numActos, $anioPresentacion, $temporada, $productor, $descripcion);
+        if ($productor == "") {
+            $productor = null;
+        }
+
+        $stmt->bind_param("sssissis", $titulo, $autor, $tipo, $numActos, $anioPresentacion, $temporada, $productor, $descripcion);
 
         $res = $stmt->execute();
 
@@ -60,6 +64,10 @@ class ObraDAO
         $productor = $obra->getProductorFk();
         $descripcion = $obra->getDescripcion();
         $id = $obra->getIdObra();
+
+        if ($productor == "") {
+            $productor = null;
+        }
 
         $stmt->bind_param("sssiisisi", $titulo, $autor, $tipo, $num_actos, $anio, $temporada, $productor, $descripcion, $id);
 
@@ -105,7 +113,7 @@ class ObraDAO
         $res = $stmt->get_result();
         $stmt->close();
         $this->conexion->getConexion()->close();
-        
+
         return $res;
     }
 }

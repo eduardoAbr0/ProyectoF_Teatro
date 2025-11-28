@@ -7,42 +7,28 @@ include_once('../models/model_obra.php');
 $json = file_get_contents('php://input');
 $datos = json_decode($json, true);
 
-$id = $datos['formId'];
-$titulo = isset($datos['formTituloModificar']) ? trim($datos['formTituloModificar']) : "";
-$autor = isset($datos['formAutorModificar']) ? trim($datos['formAutorModificar']) : "";
-$tipo = isset($datos['formTipoModificar']) ? trim($datos['formTipoModificar']) : "";
-$numActos = isset($datos['formNumActosModificar']) ? trim($datos['formNumActosModificar']) : "";
-$anioPresentacion = isset($datos['formAnioPresentacionModificar']) ? trim($datos['formAnioPresentacionModificar']) : "";
-$temporada = isset($datos['formTemporadaModificar']) ? trim($datos['formTemporadaModificar']) : "";
-$productor = isset($datos['formProductorModificar']) ? trim($datos['formProductorModificar']) : "";
-$descripcion = isset($datos['formDescripcionModificar']) ? trim($datos['formDescripcionModificar']) : "";
+$id = $datos['modificarId'];
+$titulo = isset($datos['modificarTitulo']) ? trim($datos['modificarTitulo']) : "";
+$autor = isset($datos['modificarAutor']) ? trim($datos['modificarAutor']) : "";
+$tipo = isset($datos['modificarTipo']) ? trim($datos['modificarTipo']) : "";
+$numActos = isset($datos['modificarNumActos']) ? trim($datos['modificarNumActos']) : "";
+$anioPresentacion = isset($datos['modificarAnio']) ? trim($datos['modificarAnio']) : "";
+$temporada = isset($datos['modificarTemporada']) ? trim($datos['modificarTemporada']) : "";
+$productor = isset($datos['modificarProductor']) ? trim($datos['modificarProductor']) : "";
+$descripcion = isset($datos['modificarDescripcion']) ? trim($datos['modificarDescripcion']) : "";
 
 
 $errores = [];
 
 //VALIDACIONES
-if (empty($titulo) || empty($autor) || empty($tipo) || empty($numActos) || empty($anioPresentacion) || empty($temporada) || empty($descripcion)) {
-    $errores[] = "Los campos son obligatorios.";
+if (empty($titulo) || empty($autor) || empty($anioPresentacion) || empty($descripcion)) {
+    $errores[] = "Faltan rellenar campos.";
 }
-if (!empty($numActos) && (!is_numeric($numActos) || strlen($numActos) > 0)) {
-    $errores[] = "El número de actos solo debe tener números.";
+if ((!is_numeric($numActos) || strlen($numActos) < 1)) {
+    $errores[] = "Número de actos invalido.";
 }
-if (!empty($anioPresentacion) && (!is_numeric($anioPresentacion) || strlen($anioPresentacion) != 4)) {
-    $errores[] = "El año de presentación debe tener 4 dígitos.";
-}
-
-if (!empty($errores)) {
-    $mensaje = "";
-
-    foreach ($errores as $error) {
-        $mensaje .= $error . "<br>";
-    }
-
-    echo json_encode([
-        'status' => 'error',
-        'message' => $mensaje
-    ]);
-    exit;
+if ((!is_numeric($anioPresentacion) || strlen($anioPresentacion) != 4)) {
+    $errores[] = "Año de presentación invalido.";
 }
 
 if (!empty($errores)) {
@@ -85,6 +71,3 @@ try {
 } catch (Exception $e) {
     echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 }
-
-
-?>

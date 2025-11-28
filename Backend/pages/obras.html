@@ -21,6 +21,7 @@
     <!--Scripts-->
     <script src="../librarys/livevalidation_standalone.js"></script>
     <script src="../scripts/obra.js"></script>
+    <script src="../scripts/validacionObras.js"></script>
 
     <title>Obras</title>
 </head>
@@ -44,10 +45,10 @@
                         <a class="nav-link" aria-current="page" href="#"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link hover-underline-animation center active" href="#">Miembros</a>
+                        <a class="nav-link hover-underline-animation center" href="#">Miembros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link hover-underline-animation center" href="#">Obras</a>
+                        <a class="nav-link hover-underline-animation center active" href="#">Obras</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link hover-underline-animation center" href="#">Gestión financiera</a>
@@ -78,7 +79,7 @@
                 </div>
                 <div class="p-2">
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Buscar obra..."/>
+                        <input class="form-control me-2" type="search" placeholder="Buscar obra..." />
                     </form>
                 </div>
             </div>
@@ -94,7 +95,7 @@
                                 <th>ID</th>
                                 <th>Título</th>
                                 <th>Autor</th>
-                                <th>Género</th>
+                                <th>Tipo</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -118,21 +119,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formAgregarObra" onsubmit="agregarObra(event)" method="POST">
+                    <form id="formAgregarObra" onsubmit="agregar(event)" method="POST">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label>Título de la Obra</label>
-                                <input type="text" class="form-control" name="titulo" required>
+                                <input type="text" class="form-control" id="formTitulo" name="formTitulo" required>
                             </div>
                             <div class="col-md-6">
                                 <label>Autor</label>
-                                <input type="text" class="form-control" name="autor" required>
+                                <input type="text" class="form-control" id="formAutor" name="formAutor" required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label>Tipo</label>
-                                <select class="form-select" name="tipo">
+                                <select class="form-select" name="formTipo">
                                     <option value="Drama">Drama</option>
                                     <option value="Comedia">Comedia</option>
                                     <option value="Musical">Musical</option>
@@ -141,23 +142,23 @@
                             </div>
                             <div class="col-md-4">
                                 <label>Num. Actos</label>
-                                <input type="number" class="form-control" name="num_actos">
+                                <input type="text" class="form-control" id="formNumActos" name="formNumActos">
                             </div>
                             <div class="col-md-4">
                                 <label>Año</label>
-                                <input type="number" class="form-control" name="anio" value="2025">
+                                <input type="text" class="form-control" id="formAnioPresentacion" name="formAnioPresentacion" value="2025">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label>Productor (Miembro)</label>
-                                <select class="form-select" id="selectProductorAgregar" name="productor">
+                                <select class="form-select" id="selectProductorAgregar" name="formProductor">
                                     <option value="">Seleccione un productor...</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label>Temporada</label>
-                                <select class="form-select" id="selectTemporadaAgregar" name="temporada">
+                                <select class="form-select" id="selectTemporadaAgregar" name="formTemporada">
                                     <option value="Primavera">Primavera</option>
                                     <option value="Verano">Verano</option>
                                     <option value="Otoño">Otoño</option>
@@ -167,7 +168,7 @@
                         </div>
                         <div class="mb-3">
                             <label>Descripción</label>
-                            <textarea class="form-control" name="descripcion" rows="3"></textarea>
+                            <textarea class="form-control" id="formDescripcion" name="formDescripcion" rows="3"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -207,7 +208,7 @@
                                 <input type="text" class="form-control" id="detalleAutor" disabled>
                             </div>
                             <div class="col-md-6">
-                                <label>Género</label>
+                                <label>Tipo</label>
                                 <input type="text" class="form-control" id="detalleTipo" disabled>
                             </div>
                         </div>
@@ -254,22 +255,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formModificarObra" onsubmit="modificarObra(event)">
-                        <input type="hidden" id="modificarId" name="id_obra">
+                    <form id="formModificarObra" onsubmit="modificar(event)">
+                        <div class="form-group mb-3">
+                            <label for="modificarId">ID</label>
+                            <input type="text" class="form-control" id="modificarId" name="modificarId" readonly>
+                        </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label>Título de la Obra</label>
-                                <input type="text" class="form-control" id="modificarTitulo" name="titulo" required>
+                                <input type="text" class="form-control" id="modificarTitulo" name="modificarTitulo"
+                                    required>
                             </div>
                             <div class="col-md-6">
                                 <label>Autor</label>
-                                <input type="text" class="form-control" id="modificarAutor" name="autor" required>
+                                <input type="text" class="form-control" id="modificarAutor" name="modificarAutor"
+                                    required>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label>Tipo</label>
-                                <select class="form-select" id="modificarTipo" name="tipo">
+                                <select class="form-select" id="modificarTipo" name="modificarTipo">
                                     <option value="Drama">Drama</option>
                                     <option value="Comedia">Comedia</option>
                                     <option value="Musical">Musical</option>
@@ -278,21 +284,23 @@
                             </div>
                             <div class="col-md-4">
                                 <label>Num. Actos</label>
-                                <input type="number" class="form-control" id="modificarNumActos" name="num_actos">
+                                <input type="text" class="form-control" id="modificarNumActos"
+                                    name="modificarNumActos">
                             </div>
                             <div class="col-md-4">
                                 <label>Año</label>
-                                <input type="number" class="form-control" id="modificarAnio" name="anio">
+                                <input type="text" class="form-control" id="modificarAnio" name="modificarAnio">
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label>Productor (ID Miembro)</label>
-                                <input type="number" class="form-control" id="modificarProductor" name="productor">
+                                <input type="number" class="form-control" id="modificarProductor"
+                                    name="modificarProductor">
                             </div>
                             <div class="col-md-6">
                                 <label>Temporada</label>
-                                <select class="form-select" id="modificarTemporada" name="temporada">
+                                <select class="form-select" id="modificarTemporada" name="modificarTemporada">
                                     <option value="Primavera">Primavera</option>
                                     <option value="Verano">Verano</option>
                                     <option value="Otoño">Otoño</option>
@@ -302,7 +310,7 @@
                         </div>
                         <div class="mb-3">
                             <label>Descripción</label>
-                            <textarea class="form-control" id="modificarDescripcion" name="descripcion"
+                            <textarea class="form-control" id="modificarDescripcion" name="modificarDescripcion"
                                 rows="3"></textarea>
                         </div>
                         <div class="modal-footer">
@@ -315,6 +323,27 @@
         </div>
     </div>
     <!-- FIN MODAL MODIFICAR OBRA -->
+
+    <!-- MODAL CONFIRMACION ELIMINAR-->
+    <div class="modal fade" id="modalEliminarConfirmar">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h1 class="modal-title">Confirmar eliminacion</h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de eliminar esta obra?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmarEliminarObra">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN MODAL CONFIRMACION ELIMINAR-->
+
     </main>
 
     <!-- TOAST ADVERTENCIA -->
@@ -322,10 +351,7 @@
         <div id="toastAdvertencia" class="toast text-bg-danger border-0" role="alert" aria-live="assertive"
             aria-atomic="true">
             <div class="d-flex">
-                <div id="toastMensaje" class="toast-body">
-                    <i class="fa-solid fa-circle-exclamation me-2"></i>
-                    <span>Error</span>
-                </div>
+                <div id="toastMensaje" class="toast-body"></div>
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
                     aria-label="Close"></button>
             </div>
@@ -333,6 +359,16 @@
     </div>
     <!-- FIN TOAST ADVERTENCIA -->
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            mostrarObras();
+        })
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </body>
 
 </html>
