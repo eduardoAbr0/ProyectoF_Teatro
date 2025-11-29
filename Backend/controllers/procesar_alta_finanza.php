@@ -18,6 +18,9 @@ if (empty($fecha) || empty($monto) || empty($concepto)) {
 if (!is_numeric($monto) || $monto <= 0) {
     $errores[] = "Monto inválido.";
 }
+if ($id_obra === "seleccion") {
+    $id_obra = null;
+}
 
 if (!empty($errores)) {
     $mensaje = "";

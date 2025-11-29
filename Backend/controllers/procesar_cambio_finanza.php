@@ -19,6 +19,9 @@ if (empty($fecha) || empty($monto) || empty($concepto)) {
     echo json_encode(['status' => 'error', 'message' => 'Datos incompletos']);
     exit;
 }
+if ($id_obra === "seleccion") {
+    $id_obra = null;
+}
 
 $finanza = new Finanza(
     $fecha,

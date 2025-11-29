@@ -21,6 +21,7 @@
     <!--Scripts-->
     <script src="../librarys/livevalidation_standalone.js"></script>
     <script src="../scripts/finanzas.js"></script>
+    <script src="../scripts/validacionFinanzas.js"></script>
 
     <title>Finanzas</title>
 </head>
@@ -50,10 +51,13 @@
                         <a class="nav-link hover-underline-animation center" href="../pages/obras.html">Obras</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link hover-underline-animation center active" href="#">Finanzas</a>
+                        <a class="nav-link hover-underline-animation center active" href="../pages/finanzas.html">Finanzas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link hover-underline-animation center" href="#">Patrocinadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Usuarios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link hover-underline-animation center" href="#">Reportes</a>
@@ -137,12 +141,13 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label>Monto</label>
-                                <input type="number" step="0.01" class="form-control" id="formMonto" name="formMonto"
+                                <input type="text" class="form-control" id="formMonto" name="formMonto"
                                     required>
                             </div>
                             <div class="col-md-6">
                                 <label>Obra</label>
                                 <select class="form-select" id="selectObraAgregar" name="formObra">
+                            
                                 </select>
                             </div>
                         </div>
@@ -192,12 +197,13 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label>Monto</label>
-                                <input type="number" step="0.01" class="form-control" id="modificarMonto"
+                                <input type="text" class="form-control" id="modificarMonto"
                                     name="modificarMonto" required>
                             </div>
                             <div class="col-md-6">
                                 <label>Obra</label>
                                 <select class="form-select" id="modificarObra" name="modificarObra">
+                                    
                                 </select>
                             </div>
                         </div>
@@ -218,7 +224,7 @@
     <!-- FIN MODAL MODIFICAR FINANZA -->
 
     <!-- MODAL CONFIRMACION ELIMINAR-->
-    <div class="modal fade" id="modalEliminarConfirmar">
+    <div class="modal fade" id="modalEliminarConfirmarFinanza">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
@@ -251,6 +257,10 @@
     <!-- FIN TOAST ADVERTENCIA -->
 
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            mostrarFinanzas();
+            cargarObras();
+        })
 
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

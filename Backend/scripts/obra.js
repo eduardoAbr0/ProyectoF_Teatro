@@ -73,10 +73,11 @@ function agregar(event) {
 }
 
 function eliminarObra(id) {
-    const modalConfirmacion = new bootstrap.Modal(document.getElementById("modalEliminarConfirmar"));
-    modalConfirmacion.show();
+    const btnConfirmar = document.getElementById("confirmarEliminarObra");
+    const newBtn = btnConfirmar.cloneNode(true);
+    btnConfirmar.parentNode.replaceChild(newBtn, btnConfirmar);
 
-    document.getElementById("confirmarEliminarObra").addEventListener("click", () => {
+    newBtn.addEventListener("click", () => {
         fetch("../../Backend/controllers/procesar_baja_obra.php", {
             method: "DELETE",
             headers: {

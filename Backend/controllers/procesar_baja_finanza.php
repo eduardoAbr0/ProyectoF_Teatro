@@ -3,10 +3,9 @@ header('Content-Type: application/json');
 
 include_once('./finanza_dao.php');
 
-$json = json_decode(file_get_contents("php://input"), true);
-$datos = json_decode($json, true);
+$datos = json_decode(file_get_contents("php://input"), true);
 
-$id = $datos['id_finanza'];
+$id = isset($datos['id_finanza']) ? $datos['id_finanza'] : null;
 
 try {
     if ($id) {
@@ -19,5 +18,3 @@ try {
 } catch (Exception $e) {
     echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 }
-
-?>

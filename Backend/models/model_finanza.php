@@ -1,6 +1,6 @@
 <?php
 
-class Finanzas
+class Finanza
 {
     private $id_finanza;
     private $fecha;
@@ -14,13 +14,15 @@ class Finanzas
         $tipo,
         $concepto,
         $monto,
-        $id_obra = null
+        $id_obra = null,
+        $id_finanza = null
     ) {
         $this->fecha = $fecha;
         $this->tipo = $tipo;
         $this->concepto = $concepto;
         $this->monto = $monto;
         $this->id_obra = $id_obra;
+        $this->id_finanza = $id_finanza;
     }
 
     public function getIdFinanza()
