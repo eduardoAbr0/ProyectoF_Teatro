@@ -18,9 +18,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
     </style>
-    
+
     <!--Scripts-->
-    <script src="./Frontend/scripts/scripts.js"></script>
+    <script src="../scripts/scripts.js"></script>
 
     <title>Miembros</title>
 </head>
@@ -32,8 +32,8 @@
 
     <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img src="../assets/img/pleasantvilleIcon.png" alt="logoCICVIA" width="75px"
-                    height="75px">Pleasantville Theater Group</a>
+            <a class="navbar-brand" href="../index.html"><img src="../assets/img/pleasantvilleIcon.png" alt="logoCICVIA"
+                    width="75px" height="75px">Pleasantville Theater Group</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -42,16 +42,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 me-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active hover-underline-animation center" href="./pages/mostrarMiembros.html">Miembros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link hover-underline-animation center" href="./pages/obras.html">Obras</a>
+                        <a class="nav-link active hover-underline-animation center " href="#">Miembros</a>
                     </li>
                 </ul>
-                <button class="btn btn-outline-success me-2" type="button" id="btnLogin">LOGIN</button>
+                <a href="./login.html" class="btn btn-outline-success me-2">LOGIN</a>
             </div>
         </div>
     </nav>
@@ -73,7 +67,7 @@
 
             <div class="container" id="mostrarMiembros">
                 <script>
-                    //mostrarMiembros();
+                    mostrarMiembros();
                 </script>
             </div>
             <!--FIN MUESTREO MIEMBROS-->

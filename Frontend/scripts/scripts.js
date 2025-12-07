@@ -1,8 +1,8 @@
 function mostrarMiembros() {
-    fetch("./Frontend/miembros.json")
+    fetch("../../Backend/controllers/procesar_mostrar.php")
         .then((response) => response.json())
         .then((data) => {
-            const miembros = data.miembros;
+            const miembros = data;
             const divMiembros = document.getElementById("mostrarMiembros");
             divMiembros.innerHTML = "";
 
@@ -20,29 +20,22 @@ function mostrarMiembros() {
                 cardBody.className = "card-body";
                 const cardImg = document.createElement("img");
                 cardImg.className = "card-img-top";
-                cardImg.src = "image.png";
+                cardImg.src = "../assets/img/image.png";
                 const nombre = document.createElement("h5");
                 nombre.className = "card-title";
                 const cardText = document.createElement("p");
                 cardText.className = "card-text";
-                const btnModificar = document.createElement("button");
-                btnModificar.className = "btn btn-warning ms-1";
-                btnModificar.innerHTML = "MODIFICAR";
-                const btnEliminar = document.createElement("button");
-                btnEliminar.className = "btn btn-danger";
-                btnEliminar.innerHTML = "ELIMINAR";
+                cardText.textContent = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.";
+                cardText.style.color = 'black';
 
                 // Asignar datos
-                nombre.textContent = `${m.firstName} ${m.lastName}`;
-                cardText.textContent = `Edad: ${m.edad}`;
+                nombre.textContent = `${m.nombre} ${m.primer_apellido}`;
 
                 // Estructura
                 card.appendChild(cardImg);
                 card.appendChild(cardBody);
                 cardBody.appendChild(nombre);
                 cardBody.appendChild(cardText);
-                cardBody.appendChild(btnEliminar);
-                cardBody.appendChild(btnModificar);
                 cardCol.appendChild(card);
                 row.appendChild(cardCol);
             }
