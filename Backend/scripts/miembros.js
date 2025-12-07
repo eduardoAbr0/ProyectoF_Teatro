@@ -1,3 +1,5 @@
+let todosLosMiembros = [];
+
 function mostrarMiembros() {
   fetch("../controllers/procesar_mostrar.php")
     .then((response) => response.json())
@@ -8,117 +10,123 @@ function mostrarMiembros() {
         return;
       }
 
-      //console.log("Datos recibidos:", data);
-
-      const miembros = data;
-      const divMiembros = document.getElementById("mostrarMiembros");
-
-      eliminar_toltips();
-
-      divMiembros.innerHTML = "";
-
-      const row = document.createElement("div");
-      row.className = "row pb-4 pt-4 align-items-center";
-      divMiembros.appendChild(row);
-
-      for (const m of miembros) {
-        //console.log("Miembro individual:", m);
-
-        // Crear elementos dentro del ciclo
-        const cardCol = document.createElement("div");
-        cardCol.className = "col-lg-3 col-md-4 col-12 pb-4 pt-3";
-        const card = document.createElement("div");
-        card.className = "card";
-        const cardBody = document.createElement("div");
-        cardBody.className = "card-body";
-
-        // Imagen de perfil
-        const cardImg = document.createElement("img");
-        cardImg.className = "card-img-top";
-        cardImg.src = "../../Frontend/assets/img/image.png";
-
-        const title = document.createElement("h5");
-        title.className = "card-title";
-        const cardText = document.createElement("p");
-        cardText.className = "card-text";
-
-        // Botones de modificacion
-        //...BTN CAMBIOS
-        const iconCambio = document.createElement("i");
-        iconCambio.className = "fa-solid fa-gear";
-        const btnModificar = document.createElement("i");
-        btnModificar.className = "btn btn-warning ms-1";
-        btnModificar.setAttribute("data-bs-toggle", "tooltip");
-        btnModificar.title = "Modificar";
-        btnModificar.setAttribute("data-id", m.id_miembro);
-
-        btnModificar.addEventListener("click", function () {
-          modificar_mostrar(this.dataset.id);
-        });
-
-        btnModificar.appendChild(iconCambio);
-        new bootstrap.Tooltip(btnModificar);
-
-        //...BTN ELIMINAR
-        const iconEliminar = document.createElement("i");
-        iconEliminar.className = "fa-solid fa-trash";
-        const btnEliminar = document.createElement("button");
-        btnEliminar.className = "btn btn-danger ms-1";
-        btnEliminar.setAttribute("data-bs-toggle", "tooltip");
-        btnEliminar.title = "Eliminar";
-        btnEliminar.setAttribute("data-id", m.id_miembro);
-
-        btnEliminar.addEventListener("click", function () {
-          eliminar(this.dataset.id);
-        });
-
-        btnEliminar.appendChild(iconEliminar);
-        new bootstrap.Tooltip(btnEliminar);
-
-        //...BTN DETALLES
-        const iconDetalle = document.createElement("i");
-        iconDetalle.className = "fa-solid fa-file-zipper";
-        const btnDetalle = document.createElement("button");
-        btnDetalle.className = "btn btn-info ms-1";
-        btnDetalle.setAttribute("data-bs-toggle", "tooltip");
-        btnDetalle.setAttribute("data-id", m.id_miembro);
-
-        btnDetalle.addEventListener("click", function () {
-          detalle(this.dataset.id);
-        });
-
-        btnDetalle.title = "Detalle";
-        btnDetalle.appendChild(iconDetalle);
-        new bootstrap.Tooltip(btnDetalle);
-
-        //Lista para botones
-        const lista = document.createElement("ul");
-        lista.className = "list-group list-group-flush";
-        const elementosLista = document.createElement("li");
-        elementosLista.className = "list-group-item";
-
-        // Asignacion de los botones estaticos a elemento de lista
-        elementosLista.appendChild(btnModificar);
-        elementosLista.appendChild(btnEliminar);
-        elementosLista.appendChild(btnDetalle);
-
-        // Elemento de lista agregado en la misma
-        lista.appendChild(elementosLista);
-
-        // Asignar datos
-        title.textContent = `ID: ${m.id_miembro}`;
-        cardText.innerHTML = `Nombre: ${m.nombre} <br> Primer Apellido: ${m.primer_apellido} <br> Segundo Apellido: ${m.segundo_apellido}`;
-
-        // Estructura
-        card.appendChild(cardImg);
-        card.appendChild(cardBody);
-        card.appendChild(lista);
-        cardBody.appendChild(title);
-        cardBody.appendChild(cardText);
-        cardCol.appendChild(card);
-        row.appendChild(cardCol);
-      }
+      todosLosMiembros = data;
+      renderizarMiembros(todosLosMiembros);
     });
+}
+
+function renderizarMiembros(miembros) {
+  const divMiembros = document.getElementById("mostrarMiembros");
+  eliminar_toltips();
+
+  divMiembros.innerHTML = "";
+
+  const row = document.createElement("div");
+  row.className = "row pb-4 pt-4 align-items-center";
+  divMiembros.appendChild(row);
+
+  if (miembros.length === 0) {
+    divMiembros.innerHTML = '<p class="text-center text-muted">No se encontraron miembros.</p>';
+    return;
+  }
+
+  for (const m of miembros) {
+    //console.log("Miembro individual:", m);
+
+    // Crear elementos dentro del ciclo
+    const cardCol = document.createElement("div");
+    cardCol.className = "col-lg-3 col-md-4 col-12 pb-4 pt-3";
+    const card = document.createElement("div");
+    card.className = "card";
+    const cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+
+    // Imagen de perfil
+    const cardImg = document.createElement("img");
+    cardImg.className = "card-img-top";
+    cardImg.src = "../../Frontend/assets/img/image.png";
+
+    const title = document.createElement("h5");
+    title.className = "card-title";
+    const cardText = document.createElement("p");
+    cardText.className = "card-text";
+
+    // Botones de modificacion
+    //...BTN CAMBIOS
+    const iconCambio = document.createElement("i");
+    iconCambio.className = "fa-solid fa-gear";
+    const btnModificar = document.createElement("i");
+    btnModificar.className = "btn btn-warning ms-1";
+    btnModificar.setAttribute("data-bs-toggle", "tooltip");
+    btnModificar.title = "Modificar";
+    btnModificar.setAttribute("data-id", m.id_miembro);
+
+    btnModificar.addEventListener("click", function () {
+      modificar_mostrar(this.dataset.id);
+    });
+
+    btnModificar.appendChild(iconCambio);
+    new bootstrap.Tooltip(btnModificar);
+
+    //...BTN ELIMINAR
+    const iconEliminar = document.createElement("i");
+    iconEliminar.className = "fa-solid fa-trash";
+    const btnEliminar = document.createElement("button");
+    btnEliminar.className = "btn btn-danger ms-1";
+    btnEliminar.setAttribute("data-bs-toggle", "tooltip");
+    btnEliminar.title = "Eliminar";
+    btnEliminar.setAttribute("data-id", m.id_miembro);
+
+    btnEliminar.addEventListener("click", function () {
+      eliminar(this.dataset.id);
+    });
+
+    btnEliminar.appendChild(iconEliminar);
+    new bootstrap.Tooltip(btnEliminar);
+
+    //...BTN DETALLES
+    const iconDetalle = document.createElement("i");
+    iconDetalle.className = "fa-solid fa-file-zipper";
+    const btnDetalle = document.createElement("button");
+    btnDetalle.className = "btn btn-info ms-1";
+    btnDetalle.setAttribute("data-bs-toggle", "tooltip");
+    btnDetalle.setAttribute("data-id", m.id_miembro);
+
+    btnDetalle.addEventListener("click", function () {
+      detalle(this.dataset.id);
+    });
+
+    btnDetalle.title = "Detalle";
+    btnDetalle.appendChild(iconDetalle);
+    new bootstrap.Tooltip(btnDetalle);
+
+    //Lista para botones
+    const lista = document.createElement("ul");
+    lista.className = "list-group list-group-flush";
+    const elementosLista = document.createElement("li");
+    elementosLista.className = "list-group-item";
+
+    // Asignacion de los botones estaticos a elemento de lista
+    elementosLista.appendChild(btnModificar);
+    elementosLista.appendChild(btnEliminar);
+    elementosLista.appendChild(btnDetalle);
+
+    // Elemento de lista agregado en la misma
+    lista.appendChild(elementosLista);
+
+    // Asignar datos
+    title.textContent = `ID: ${m.id_miembro}`;
+    cardText.innerHTML = `Nombre: ${m.nombre} <br> Primer Apellido: ${m.primer_apellido} <br> Segundo Apellido: ${m.segundo_apellido}`;
+
+    // Estructura
+    card.appendChild(cardImg);
+    card.appendChild(cardBody);
+    card.appendChild(lista);
+    cardBody.appendChild(title);
+    cardBody.appendChild(cardText);
+    cardCol.appendChild(card);
+    row.appendChild(cardCol);
+  }
 }
 
 function agregar(event) {
@@ -295,3 +303,14 @@ function eliminar_toltips() {
   const tooltips = document.querySelectorAll('.tooltip');
   tooltips.forEach(t => t.remove());
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const inputBusqueda = document.getElementById("busquedaMiembro");
+    inputBusqueda.addEventListener("keyup", (e) => {
+      const termino = e.target.value.toLowerCase();
+      const filtrados = todosLosMiembros.filter(m =>
+        m.nombre.toLowerCase().includes(termino)
+      );
+      renderizarMiembros(filtrados);
+    });
+});

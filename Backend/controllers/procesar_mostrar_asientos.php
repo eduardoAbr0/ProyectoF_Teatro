@@ -6,12 +6,7 @@ include_once('asiento_dao.php');
 try {
     $asientoDAO = new AsientoDAO();
 
-    if (isset($_GET['id_obra'])) {
-        $idObra = $_GET['id_obra'];
-        $result = $asientoDAO->mostrarAsientosDisponibles($idObra);
-    } else {
-        $result = $asientoDAO->mostrarAsientos();
-    }
+    $result = $asientoDAO->mostrarAsientos();
 
     if (!$result) {
         echo json_encode(["error" => "Error al consultar los asientos."]);
