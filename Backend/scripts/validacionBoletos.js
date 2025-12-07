@@ -39,13 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Validar Fecha Compra
-    function validarFechaCompra(id) {
-        if (document.getElementById(id)) {
-            var val = new LiveValidation(id, { validMessage: "✅" });
-            val.add(Validate.Presence, { failureMessage: "Se requiere la fecha de compra." });
-        }
-    }
 
     // Validar Estado
     function validarEstado(id) {
@@ -60,15 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
     validarIdAsiento('formIdAsiento');
     validarIdObra('formIdObra');
     validarPrecio('formPrecio');
-    validarFechaCompra('formFechaCompra');
-    validarEstado('formEstado');
 
     // --- Formulario MODIFICAR 
     validarIdUsuario('modificarIdUsuario');
     validarIdAsiento('modificarIdAsiento');
     validarIdObra('modificarIdObra');
     validarPrecio('modificarPrecio');
-    validarFechaCompra('modificarFechaCompra');
     validarEstado('modificarEstado');
 
 });

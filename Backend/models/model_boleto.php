@@ -14,16 +14,12 @@ class Boleto
         $id_usuario,
         $id_asiento,
         $id_obra,
-        $precio,
-        $fecha_compra,
-        $estado
+        $precio
     ) {
         $this->id_usuario = $id_usuario;
         $this->id_asiento = $id_asiento;
         $this->id_obra = $id_obra;
         $this->precio = $precio;
-        $this->fecha_compra = $fecha_compra;
-        $this->estado = $estado;
     }
 
     public function getIdBoleto()
