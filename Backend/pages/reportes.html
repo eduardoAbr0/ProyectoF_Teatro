@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Estilos y bootstrap-->
+    <link rel="stylesheet" href="../../Frontend/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../Frontend/css/style.css">
+    <script src="../../Frontend/Bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!--Iconos-->
+    <script src="https://kit.fontawesome.com/f50be4e936.js" crossorigin="anonymous"></script>
+
+    <!--Fuente-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+    </style>
+
+    <!--Scripts-->
+    <script src="../scripts/reportes.js"></script>
+
+    <title>Reportes</title>
+</head>
+
+<body>
+    <!--
+    ------ HEADER
+    -->
+    <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../../index.html"><img src="../../Frontend/assets/img/pleasantvilleIcon.png"
+                    alt="logoCICVIA" width="75px" height="75px">Pleasantville Theater Group</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-right">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="../pages/miembros.html">Miembros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="../pages/obras.html">Obras</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="../pages/finanzas.html">Finanzas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="#">Patrocinadores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center" href="../pages/boletos.html">Boletos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link hover-underline-animation center active" href="../pages/reportes.html">Reportes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--
+    ------ FIN HEADER
+    -->
+
+    <main id="main" class="container">
+        <div class="container" style="padding: 2% 0;">
+            <!--ENCABEZADO-->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Reporte de Ganancias por Obra</h1>
+            </div>
+        </div>
+
+        <!-- TABLA PARA MOSTRAR REPORTES-->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID Obra</th>
+                                <th>Título</th>
+                                <th>Ganancia Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaReportes">
+                            <!--CONTENIDO CARGADO DINÁMICAMENTE-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- TOAST ADVERTENCIA -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastAdvertencia" class="toast text-bg-danger border-0" role="alert" aria-live="assertive"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div id="toastMensaje" class="toast-body"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN TOAST ADVERTENCIA -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            mostrarReporteGanancias();
+        })
+    </script>
+</body>
+
+</html>
