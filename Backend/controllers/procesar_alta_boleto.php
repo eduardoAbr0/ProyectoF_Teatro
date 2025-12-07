@@ -8,12 +8,10 @@ $idUsuario = isset($_POST['formIdUsuario']) ? trim($_POST['formIdUsuario']) : ""
 $idAsiento = isset($_POST['formIdAsiento']) ? trim($_POST['formIdAsiento']) : "";
 $idObra = isset($_POST['formIdObra']) ? trim($_POST['formIdObra']) : "";
 $precio = isset($_POST['formPrecio']) ? trim($_POST['formPrecio']) : "";
-$fechaCompra = isset($_POST['formFechaCompra']) ? trim($_POST['formFechaCompra']) : "";
-$estado = isset($_POST['formEstado']) ? trim($_POST['formEstado']) : "";
 
 //VALIDACIONES
 $errores = [];
-if (empty($idUsuario) || empty($idAsiento) || empty($idObra) || empty($precio) || empty($fechaCompra) || empty($estado)) {
+if (empty($idUsuario) || empty($idAsiento) || empty($idObra) || empty($precio)) {
     $errores[] = "Faltan rellenar campos.";
 }
 if (!is_numeric($precio) || $precio < 0) {
@@ -38,9 +36,7 @@ $boleto = new Boleto(
     $idUsuario,
     $idAsiento,
     $idObra,
-    $precio,
-    $fechaCompra,
-    $estado
+    $precio
 );
 
 try {
@@ -48,7 +44,7 @@ try {
 
     $res = $boletoDAO->agregarBoleto($boleto);
 
-    if ($res) {
+    if ($res['mensaje'] == 'Exito') {
         echo json_encode(['status' => 'exito', 'message' => 'Boleto agregado correctamente']);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Error en la base de datos']);

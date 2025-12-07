@@ -17,29 +17,26 @@ class BoletoDAO
     //ALTAS
     public function agregarBoleto($boleto)
     {
-        //INSTRUCCION SQL A EXECUTAR
-        $sql = "INSERT INTO boletos (id_usuario, id_asiento, id_obra, precio, fecha_compra, estado)
-            VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "CALL sp_vender_boleto(?, ?, ?, ?)";
 
-        //INSTRUCCION STATEMENT
         $stmt = $this->conexion->getConexion()->prepare($sql);
 
-        //ASIGNACION DE VALORES PARA EL PREPARE STATEMENT
         $idUsuario = $boleto->getIdUsuario();
         $idAsiento = $boleto->getIdAsiento();
         $idObra = $boleto->getIdObra();
         $precio = $boleto->getPrecio();
-        $fechaCompra = $boleto->getFechaCompra();
-        $estado = $boleto->getEstado();
 
-        $stmt->bind_param("iiidss", $idUsuario, $idAsiento, $idObra, $precio, $fechaCompra, $estado);
+        $stmt->bind_param("iiid", $idUsuario, $idAsiento, $idObra, $precio);
 
-        $res = $stmt->execute();
+        $stmt->execute();
 
+        $resultado = $stmt->get_result();
+        $fila = $resultado->fetch_assoc();
+        
         $stmt->close();
+        
         $this->conexion->getConexion()->close();
-
-        return $res;
+        return $fila; 
     }
 
     //CAMBIOS
