@@ -95,7 +95,7 @@ class BoletoDAO
     //CONSULTA ID
     public function mostrarBoletoDetalle($id)
     {
-        $sql = "SELECT * FROM boletos WHERE id_boleto = ?";
+        $sql = "SELECT * FROM vista_boletos_detalle WHERE id_boleto = ?";
         $stmt = mysqli_prepare($this->conexion->getConexion(), $sql);
         $stmt->bind_param("i", $id);
         $stmt->execute();
