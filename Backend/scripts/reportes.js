@@ -1,5 +1,5 @@
 function mostrarReporteGanancias() {
-    fetch("../controllers/procesar_reporte_ganancias.php")
+    fetch("/Backend/controllers/procesar_reporte_ganancias.php")
         .then((response) => response.json())
         .then((data) => {
             if (data.status === "error") {
@@ -9,7 +9,7 @@ function mostrarReporteGanancias() {
 
             const tablaReportes = document.getElementById("tablaReportes");
             tablaReportes.innerHTML = "";
-            
+
             if (data.length === 0) {
                 const row = document.createElement("tr");
                 row.innerHTML = `<td colspan="3" class="text-center">No hay datos disponibles</td>`;

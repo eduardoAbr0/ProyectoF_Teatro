@@ -1,5 +1,5 @@
 function mostrarObras() {
-    fetch("../controllers/procesar_mostrar_obras.php")
+    fetch("/Backend/controllers/procesar_mostrar_obras.php")
         .then((response) => response.json())
         .then((data) => {
             if (data.status === "error") {
@@ -49,13 +49,42 @@ function mostrarObras() {
         });
 }
 
+function cargarMiembros() {
+    fetch("/Backend/controllers/procesar_mostrar.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "error") {
+                console.error("Error al cargar productores: " + data.message);
+                return;
+            }
+
+            const selectAgregar = document.getElementById("selectProductorAgregar");
+            const selectModificar = document.getElementById("modificarProductor");
+
+            selectAgregar.innerHTML = '<option disabled selected>Seleccione un productor...</option>';
+            selectModificar.innerHTML = '<option disabled selected>Seleccione un productor...</option>';
+
+            data.forEach(miembro => {
+                const opcion = document.createElement("option");
+                opcion.value = miembro.id_miembro;
+                opcion.textContent = `${miembro.id_miembro} - ${miembro.nombre}`;
+
+                selectAgregar.appendChild(opcion);
+                selectModificar.appendChild(opcion.cloneNode(true));
+            });
+        })
+        .catch(error => {
+            console.error("Error cargando productores:", error);
+        });
+}
+
 function agregar(event) {
     event.preventDefault();
 
     const formulario = event.target;
     const formData = new FormData(formulario);
 
-    fetch("../../backend/controllers/procesar_alta_obra.php", {
+    fetch("/Backend/controllers/procesar_alta_obra.php", {
         method: "POST",
         body: formData
     })
@@ -78,7 +107,7 @@ function eliminarObra(id) {
     btnConfirmar.parentNode.replaceChild(newBtn, btnConfirmar);
 
     newBtn.addEventListener("click", () => {
-        fetch("../../Backend/controllers/procesar_baja_obra.php", {
+        fetch("/Backend/controllers/procesar_baja_obra.php", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -112,7 +141,7 @@ function modificar(event) {
 
     //console.log(formDataObj);
 
-    fetch("../../Backend/controllers/procesar_cambio_obra.php", {
+    fetch("/Backend/controllers/procesar_cambio_obra.php", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -139,7 +168,7 @@ function modificar(event) {
 }
 
 function modificar_mostrar(id) {
-    fetch(`../controllers/procesar_detalle_obra.php?id_obra=${id}`, {
+    fetch(`/Backend/controllers/procesar_detalle_obra.php?id_obra=${id}`, {
         method: "GET",
     })
         .then((response) => response.json())
@@ -148,24 +177,24 @@ function modificar_mostrar(id) {
                 mostrarToast(data.error, "error");
                 return;
             }
-            
+
             //console.log(data);
 
             // Llenado de campos existentes
             document.getElementById("modificarId").value = data.id_obra;
             document.getElementById("modificarTitulo").value = data.titulo;
             document.getElementById("modificarAutor").value = data.autor;
-            if(data.tipo === ""){
+            if (data.tipo === "") {
                 document.getElementById("modificarTipo").value = "Drama";
-            }else{
+            } else {
                 document.getElementById("modificarTipo").value = data.tipo;
             }
             document.getElementById("modificarNumActos").value = data.num_actos;
             document.getElementById("modificarAnio").value = data.anio_presentacion;
             document.getElementById("modificarProductor").value = data.productor;
-            if(data.temporada === ""){
+            if (data.temporada === "") {
                 document.getElementById("modificarTemporada").value = "Primavera";
-            }else{
+            } else {
                 document.getElementById("modificarTemporada").value = data.temporada;
             }
             document.getElementById("modificarDescripcion").value = data.descripcion;
@@ -182,7 +211,7 @@ function modificar_mostrar(id) {
 }
 
 function detalle(id) {
-    fetch(`../../Backend/controllers/procesar_detalle_obra.php?id_obra=${id}`, {
+    fetch(`/Backend/controllers/procesar_detalle_obra.php?id_obra=${id}`, {
         method: "GET"
     })
         .then(response => response.json())

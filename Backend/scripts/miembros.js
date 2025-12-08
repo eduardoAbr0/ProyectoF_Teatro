@@ -1,7 +1,7 @@
 let todosLosMiembros = [];
 
 function mostrarMiembros() {
-  fetch("../controllers/procesar_mostrar.php")
+  fetch("/Backend/controllers/procesar_mostrar.php")
     .then((response) => response.json())
     .then((data) => {
 
@@ -44,7 +44,7 @@ function renderizarMiembros(miembros) {
     // Imagen de perfil
     const cardImg = document.createElement("img");
     cardImg.className = "card-img-top";
-    cardImg.src = "../../Frontend/assets/img/image.png";
+    cardImg.src = "/Frontend/assets/img/image.png";
 
     const title = document.createElement("h5");
     title.className = "card-title";
@@ -135,7 +135,7 @@ function agregar(event) {
   const formulario = event.target;
   const formData = new FormData(formulario);
 
-  fetch("../../backend/controllers/procesar_alta.php", {
+  fetch("/Backend/controllers/procesar_alta.php", {
     method: "POST",
     body: formData
   })
@@ -174,7 +174,7 @@ function mostrarToast(mensaje, tipo) {
 
 
 function eliminar(id) {
-  fetch("../controllers/procesar_baja.php", {
+  fetch("/Backend/controllers/procesar_baja.php", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -207,7 +207,7 @@ function modificar(event) {
   const formData = new FormData(formulario);
   const formDataObj = Object.fromEntries(formData.entries());
 
-  fetch("../../backend/controllers/procesar_cambio.php", {
+  fetch("/Backend/controllers/procesar_cambio.php", {
     method: "PUT",
     body: JSON.stringify(formDataObj)
   })
@@ -227,7 +227,7 @@ function modificar(event) {
 }
 
 function modificar_mostrar(id) {
-  fetch(`../controllers/procesar_detalle.php?id_miembro=${id}`, {
+  fetch(`/Backend/controllers/procesar_detalle.php?id_miembro=${id}`, {
     method: "GET",
   })
     .then((response) => response.json())
@@ -264,7 +264,7 @@ function modificar_mostrar(id) {
 }
 
 function detalle(id) {
-  fetch(`../controllers/procesar_detalle.php?id_miembro=${id}`, {
+  fetch(`/Backend/controllers/procesar_detalle.php?id_miembro=${id}`, {
     method: "GET"
   })
     .then((response) => response.json())
@@ -306,11 +306,11 @@ function eliminar_toltips() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const inputBusqueda = document.getElementById("busquedaMiembro");
-    inputBusqueda.addEventListener("keyup", (e) => {
-      const termino = e.target.value.toLowerCase();
-      const filtrados = todosLosMiembros.filter(m =>
-        m.nombre.toLowerCase().includes(termino)
-      );
-      renderizarMiembros(filtrados);
-    });
+  inputBusqueda.addEventListener("keyup", (e) => {
+    const termino = e.target.value.toLowerCase();
+    const filtrados = todosLosMiembros.filter(m =>
+      m.nombre.toLowerCase().includes(termino)
+    );
+    renderizarMiembros(filtrados);
+  });
 });

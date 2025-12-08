@@ -1,5 +1,5 @@
 function mostrarMiembros() {
-    fetch("../../Backend/controllers/procesar_mostrar.php")
+    fetch("/Backend/controllers/procesar_mostrar.php")
         .then((response) => response.json())
         .then((data) => {
             const miembros = data;
@@ -20,7 +20,7 @@ function mostrarMiembros() {
                 cardBody.className = "card-body";
                 const cardImg = document.createElement("img");
                 cardImg.className = "card-img-top";
-                cardImg.src = "../assets/img/image.png";
+                cardImg.src = "/Frontend/assets/img/image.png";
                 const nombre = document.createElement("h5");
                 nombre.className = "card-title";
                 const cardText = document.createElement("p");

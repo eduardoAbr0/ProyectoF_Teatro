@@ -1,0 +1,18 @@
+Options -Indexes
+RewriteEngine On
+
+RewriteRule ^login/?$ Frontend/pages/login.html [L]
+RewriteRule ^registro/?$ Frontend/pages/registro.html [L]
+RewriteRule ^mostrar-miembros/?$ Frontend/pages/mostrarMiembros.html [L]
+RewriteRule ^index/?$ Frontend/index.html [L]
+RewriteRule ^$ Frontend/index.html [L]
+
+RewriteRule ^panel-miembros/?$ Backend/pages/miembros.html [L]
+RewriteRule ^panel-obras/?$ Backend/pages/obras.html [L]
+RewriteRule ^panel-finanzas/?$ Backend/pages/finanzas.html [L]
+RewriteRule ^panel-boletos/?$ Backend/pages/boletos.html [L]
+RewriteRule ^panel-reportes/?$ Backend/pages/reportes.html [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ Frontend/pages/$1.html [L]

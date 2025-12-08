@@ -1,5 +1,5 @@
 function mostrarBoletos() {
-    fetch("../controllers/procesar_mostrar_boletos.php")
+    fetch("/Backend/controllers/procesar_mostrar_boletos.php")
         .then((response) => response.json())
         .then((data) => {
             if (data.status === "error") {
@@ -48,7 +48,7 @@ function mostrarBoletos() {
 }
 
 function cargarUsuarios() {
-    fetch("../controllers/procesar_mostrar.php")
+    fetch("/Backend/controllers/procesar_mostrar.php")
         .then(response => response.json())
         .then(data => {
             if (data.status === "error") {
@@ -77,7 +77,7 @@ function cargarUsuarios() {
 }
 
 function cargarObras() {
-    fetch("../controllers/procesar_mostrar_obras.php")
+    fetch("/Backend/controllers/procesar_mostrar_obras.php")
         .then(response => response.json())
         .then(data => {
             if (data.status === "error") {
@@ -106,7 +106,7 @@ function cargarObras() {
 }
 
 function cargarAsientos() {
-    fetch("../controllers/procesar_mostrar_asientos.php")
+    fetch("/Backend/controllers/procesar_mostrar_asientos.php")
         .then(response => response.json())
         .then(data => {
             if (data.status === "error") {
@@ -142,7 +142,7 @@ function agregar(event) {
     const formulario = event.target;
     const formData = new FormData(formulario);
 
-    fetch("../../backend/controllers/procesar_alta_boleto.php", {
+    fetch("/Backend/controllers/procesar_alta_boleto.php", {
         method: "POST",
         body: formData
     })
@@ -172,7 +172,7 @@ function eliminarBoleto(id) {
     modalConfirmacion.show();
 
     newBtn.addEventListener("click", () => {
-        fetch("../../Backend/controllers/procesar_baja_boleto.php", {
+        fetch("/Backend/controllers/procesar_baja_boleto.php", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -206,7 +206,7 @@ function modificar(event) {
     const formData = new FormData(formulario);
     const formDataObj = Object.fromEntries(formData.entries());
 
-    fetch("../../Backend/controllers/procesar_cambio_boleto.php", {
+    fetch("/Backend/controllers/procesar_cambio_boleto.php", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -233,7 +233,7 @@ function modificar(event) {
 }
 
 function modificar_mostrar(id) {
-    fetch(`../controllers/procesar_detalle_boleto.php?id_boleto=${id}`, {
+    fetch(`/Backend/controllers/procesar_detalle_boleto.php?id_boleto=${id}`, {
         method: "GET",
     })
         .then((response) => response.json())
@@ -265,7 +265,7 @@ function modificar_mostrar(id) {
 }
 
 function detalle(id) {
-    fetch(`../../Backend/controllers/procesar_detalle_boleto.php?id_boleto=${id}`, {
+    fetch(`/Backend/controllers/procesar_detalle_boleto.php?id_boleto=${id}`, {
         method: "GET"
     })
         .then(response => response.json())

@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Estilos y bootstrap-->
-    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/Frontend/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Frontend/css/style.css">
+    <script src="/Frontend/Bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!--Iconos-->
     <script src="https://kit.fontawesome.com/f50be4e936.js" crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
 <body>
     <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html"><img src="../assets/img/pleasantvilleIcon.png" alt="logoCICVIA"
+            <a class="navbar-brand" href="/index"><img src="/Frontend/assets/img/pleasantvilleIcon.png" alt="logoCICVIA"
                     width="75px" height="75px">Pleasantville Theater Group</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 me-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link hover-underline-animation center" href="./mostrarMiembros.html">Miembros</a>
+                        <a class="nav-link hover-underline-animation center" href="/mostrarMiembros">Miembros</a>
                     </li>
                 </ul>
             </div>
@@ -62,7 +62,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+                            <p>¿No tienes cuenta? <a href="/registro">Regístrate aquí</a></p>
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            fetch('../../Backend/controllers/procesar_login.php', {
+            fetch('/Backend/controllers/procesar_login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
@@ -102,7 +102,7 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'exito') {
-                        window.location.href = '../index.html';
+                        window.location.href = '/index';
                     } else {
                         mostrarToast(data.message, 'error');
                     }

@@ -1,5 +1,5 @@
 function mostrarFinanzas() {
-    fetch("../controllers/procesar_mostrar_finanzas.php")
+    fetch("/Backend/controllers/procesar_mostrar_finanzas.php")
         .then((response) => response.json())
         .then((data) => {
             if (data.status === "error") {
@@ -49,7 +49,7 @@ function agregar(event) {
     const formulario = event.target;
     const formData = new FormData(formulario);
 
-    fetch("../../Backend/controllers/procesar_alta_finanza.php", {
+    fetch("/Backend/controllers/procesar_alta_finanza.php", {
         method: "POST",
         body: formData
     })
@@ -82,7 +82,7 @@ function eliminarFinanza(id) {
     btnConfirmar.parentNode.replaceChild(newBtn, btnConfirmar);
 
     newBtn.addEventListener("click", () => {
-        fetch("../../Backend/controllers/procesar_baja_finanza.php", {
+        fetch("/Backend/controllers/procesar_baja_finanza.php", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -115,7 +115,7 @@ function modificar(event) {
 
     //console.log(formDataObj);
 
-    fetch("../../Backend/controllers/procesar_cambio_finanza.php", {
+    fetch("/Backend/controllers/procesar_cambio_finanza.php", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -142,7 +142,7 @@ function modificar(event) {
 }
 
 function modificar_mostrar(id) {
-    fetch(`../controllers/procesar_detalle_finanza.php?id_finanza=${id}`, {
+    fetch(`/Backend/controllers/procesar_detalle_finanza.php?id_finanza=${id}`, {
         method: "GET",
     })
         .then((response) => response.json())
@@ -190,7 +190,7 @@ function mostrarToast(mensaje, tipo) {
 }
 
 function cargarObras() {
-    fetch("../controllers/procesar_mostrar_obras.php")
+    fetch("/Backend/controllers/procesar_mostrar_obras.php")
         .then(response => response.json())
         .then(data => {
             if (data.status === "error") {
