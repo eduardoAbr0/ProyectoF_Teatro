@@ -19,6 +19,7 @@
     </style>
 
     <title>Login - PTG Theater</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -55,6 +56,10 @@
                             <div class="mb-3">
                                 <label for="password" class="form-label">Contraseña</label>
                                 <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <!-- reCAPTCHA -->
+                            <div class="mb-3 d-flex justify-content-center">
+                                <div class="g-recaptcha" data-sitekey="6LfO2iQsAAAAAC-m4QU7hRTzOcCuAuw96cE1agEM"></div>
                             </div>
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary">Ingresar</button>
@@ -93,16 +98,23 @@
             event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const recaptchaResponse = grecaptcha.getResponse();
+
+            if (recaptchaResponse.length === 0) {
+                mostrarToast('Por favor, completa el reCAPTCHA', 'error');
+                return;
+            }
 
             fetch('/Backend/controllers/procesar_login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ username, password, recaptchaResponse })
             })
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'exito') {
-                        window.location.href = '/index';
+                        //window.location.href = '/panel-miembros';
+                        console.log(data.google_debug);
                     } else {
                         mostrarToast(data.message, 'error');
                     }
