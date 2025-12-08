@@ -8,7 +8,7 @@ class UsuarioDAO
 
     public function __construct()
     {
-        $this->conexion = new ConexionBD();
+        $this->conexion = ConexionBD::getInstance();
     }
 
     public function registrarUsuario($usuario)
@@ -29,7 +29,6 @@ class UsuarioDAO
         $res = $stmt->execute();
 
         $stmt->close();
-        $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -53,13 +52,11 @@ class UsuarioDAO
         if ($row = $res->fetch_assoc()) {
             if (sha1($password) === $row['passw']) {
                 $stmt->close();
-                $this->conexion->getConexion()->close();
                 return $row;
             }
         }
 
         $stmt->close();
-        $this->conexion->getConexion()->close();
         return false;
     }
 
@@ -82,7 +79,6 @@ class UsuarioDAO
         $existe = $res->num_rows > 0;
 
         $stmt->close();
-        $this->conexion->getConexion()->close();
         return $existe;
     }
 }

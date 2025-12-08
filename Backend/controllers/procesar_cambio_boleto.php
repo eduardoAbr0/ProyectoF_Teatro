@@ -44,10 +44,11 @@ $boleto = new Boleto(
     $idUsuario,
     $idAsiento,
     $idObra,
-    $precio,
-    $fechaCompra,
-    $estado
+    $precio
 );
+
+$boleto->setFechaCompra($fechaCompra);
+$boleto->setEstado($estado);
 
 $boleto->setIdBoleto($id);
 

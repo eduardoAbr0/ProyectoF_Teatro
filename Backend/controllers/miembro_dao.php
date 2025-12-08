@@ -9,7 +9,7 @@ class MiembroDAO
 
     public function __construct()
     {
-        $this->conexion = new ConexionBD();
+        $this->conexion = ConexionBD::getInstance();
     }
 
     //-----METODOS ABCC---
@@ -44,7 +44,7 @@ class MiembroDAO
         $res = $stmt->execute();
 
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -79,7 +79,7 @@ class MiembroDAO
 
         $res = $stmt->execute();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -92,8 +92,8 @@ class MiembroDAO
         $stmt->bind_param("i", $id);
         $res = $stmt->execute();
         $stmt->close();
-        $this->conexion->getConexion()->close();
-        
+        // $this->conexion->getConexion()->close();
+
         return $res;
     }
 
@@ -105,7 +105,7 @@ class MiembroDAO
         $stmt->execute();
         $res = $stmt->get_result();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -119,7 +119,7 @@ class MiembroDAO
         $stmt->execute();
         $res = $stmt->get_result();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }

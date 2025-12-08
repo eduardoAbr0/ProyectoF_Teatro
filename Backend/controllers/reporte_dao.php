@@ -7,7 +7,7 @@ class ReporteDAO
 
     public function __construct()
     {
-        $this->conexion = new ConexionBD();
+        $this->conexion = ConexionBD::getInstance();
     }
 
     public function obtenerGananciasPorObra()
@@ -24,7 +24,6 @@ class ReporteDAO
             }
         }
 
-        $this->conexion->getConexion()->close();
 
         return $reporte;
     }

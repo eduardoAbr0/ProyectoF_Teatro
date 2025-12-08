@@ -3,6 +3,7 @@ header('Content-Type: application/json');
 
 include_once('./boleto_dao.php');
 include_once('../models/model_boleto.php');
+include_once('../util/LogObserver.php');
 
 $idUsuario = isset($_POST['formIdUsuario']) ? trim($_POST['formIdUsuario']) : "";
 $idAsiento = isset($_POST['formIdAsiento']) ? trim($_POST['formIdAsiento']) : "";
@@ -41,13 +42,15 @@ $boleto = new Boleto(
 
 try {
     $boletoDAO = new BoletoDAO();
+    $observer = new LogObserver('../ventas.log');
+    $boletoDAO->attach($observer);
 
     $res = $boletoDAO->agregarBoleto($boleto);
 
     if ($res['mensaje'] == 'Exito') {
         echo json_encode(['status' => 'exito', 'message' => 'Boleto agregado correctamente']);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Error en la base de datos']);
+        echo json_encode(['status' => 'error', 'message' => $res['mensaje']]);
     }
 } catch (Exception $e) {
     echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);

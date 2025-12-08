@@ -3,13 +3,32 @@
 include_once('../database/conexion_bd_teatro.php');
 include_once('../models/model_boleto.php');
 
-class BoletoDAO
+class BoletoDAO implements SplSubject
 {
     private $conexion;
+    private $observers;
 
     public function __construct()
     {
-        $this->conexion = new ConexionBD();
+        $this->conexion = ConexionBD::getInstance();
+        $this->observers = new SplObjectStorage();
+    }
+
+    public function attach(SplObserver $observer): void
+    {
+        $this->observers->attach($observer);
+    }
+
+    public function detach(SplObserver $observer): void
+    {
+        $this->observers->detach($observer);
+    }
+
+    public function notify(): void
+    {
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
     }
 
     //-----METODOS ABCC---
@@ -32,11 +51,15 @@ class BoletoDAO
 
         $resultado = $stmt->get_result();
         $fila = $resultado->fetch_assoc();
-        
+
         $stmt->close();
-        
-        $this->conexion->getConexion()->close();
-        return $fila; 
+
+        if ($fila && isset($fila['mensaje']) && $fila['mensaje'] == 'Exito') {
+            $this->notify();
+        }
+
+        // $this->conexion->getConexion()->close();
+        return $fila;
     }
 
     //CAMBIOS
@@ -58,7 +81,7 @@ class BoletoDAO
 
         $res = $stmt->execute();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -71,7 +94,7 @@ class BoletoDAO
         $stmt->bind_param("i", $id);
         $res = $stmt->execute();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
         return $res;
     }
 
@@ -84,7 +107,7 @@ class BoletoDAO
         $stmt->execute();
         $res = $stmt->get_result();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -98,7 +121,7 @@ class BoletoDAO
         $stmt->execute();
         $res = $stmt->get_result();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }

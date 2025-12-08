@@ -1,5 +1,6 @@
 <?php
 require_once 'usuario_dao.php';
+require_once 'TeatroFacade.php';
 
 ob_start();
 session_start();
@@ -30,8 +31,8 @@ if (empty($username) || empty($password)) {
     exit;
 }
 
-$usuarioDAO = new UsuarioDAO();
-$usuario = $usuarioDAO->login($username, $password);
+$facade = new TeatroFacade();
+$usuario = $facade->verificarAcceso($username, $password);
 
 if ($usuario) {
     $_SESSION['usuario'] = $usuario['username'];

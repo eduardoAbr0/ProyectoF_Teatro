@@ -8,7 +8,7 @@ class AsientoDAO
 
     public function __construct()
     {
-        $this->conexion = new ConexionBD();
+        $this->conexion = ConexionBD::getInstance();
     }
 
     public function mostrarAsientos()
@@ -23,7 +23,7 @@ class AsientoDAO
         $stmt->execute();
         $res = $stmt->get_result();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }

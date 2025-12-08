@@ -174,28 +174,41 @@ function mostrarToast(mensaje, tipo) {
 
 
 function eliminar(id) {
-  fetch("/Backend/controllers/procesar_baja.php", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id_miembro: id }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
+  const btnConfirmar = document.getElementById("confirmarEliminarMiembro");
+  const newBtn = btnConfirmar.cloneNode(true);
+  btnConfirmar.parentNode.replaceChild(newBtn, btnConfirmar);
 
-      if (data.status === "exito") {
-        mostrarMiembros();
-        mostrarToast(data.message, "exito");
-      } else {
-        mostrarToast(data.message, "error");
-      }
+  const modalConfirmacion = new bootstrap.Modal(document.getElementById("modalEliminarConfirmar"));
+  modalConfirmacion.show();
 
-
+  newBtn.addEventListener("click", () => {
+    fetch("/Backend/controllers/procesar_baja.php", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id_miembro: id
+      }),
     })
-    .catch((error) => {
-      mostrarToast("Error en fetch: " + error.message, "error");
-    });
+      .then((response) => response.json())
+      .then((data) => {
+
+        if (data.status === "exito") {
+          mostrarMiembros();
+          mostrarToast(data.message, "exito");
+        } else {
+          mostrarToast(data.message, "error");
+        }
+      })
+      .catch((error) => {
+        mostrarToast("Error en fetch: " + error.message, "error");
+      });
+
+    const modalEl = document.getElementById("modalEliminarConfirmar");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    modal.hide();
+  });
 }
 
 function modificar(event) {

@@ -113,13 +113,17 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.status === 'exito') {
-                        //window.location.href = '/panel-miembros';
+                        window.location.href = '/panel-miembros';
                         console.log(data.google_debug);
                     } else {
                         mostrarToast(data.message, 'error');
+                        grecaptcha.reset();
                     }
                 })
-                .catch(err => mostrarToast('Error en el servidor', 'error'));
+                .catch(err => {
+                    mostrarToast('Error en el servidor', 'error');
+                    grecaptcha.reset();
+                });
         }
 
         function mostrarToast(mensaje, tipo) {

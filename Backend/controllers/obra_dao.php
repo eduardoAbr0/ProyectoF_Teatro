@@ -9,7 +9,7 @@ class ObraDAO
 
     public function __construct()
     {
-        $this->conexion = new ConexionBD();
+        $this->conexion = ConexionBD::getInstance();
     }
 
     //-----METODOS ABCC---
@@ -43,7 +43,7 @@ class ObraDAO
         $res = $stmt->execute();
 
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -73,7 +73,7 @@ class ObraDAO
 
         $res = $stmt->execute();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }
@@ -86,7 +86,7 @@ class ObraDAO
         $stmt->bind_param("i", $id);
         $res = $stmt->execute();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
         return $res;
     }
 
@@ -112,7 +112,7 @@ class ObraDAO
         $stmt->execute();
         $res = $stmt->get_result();
         $stmt->close();
-        $this->conexion->getConexion()->close();
+        // $this->conexion->getConexion()->close();
 
         return $res;
     }
