@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:background="@color/background_light"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registro"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/sage_green"
+        android:layout_marginBottom="48dp"/>
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextEmailRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Usuario"
+        android:inputType="textPersonName"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextPasswordRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrarse"
+        android:backgroundTint="@color/sage_green"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/textViewLoginLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Ya tienes una cuenta? Inicia sesión aquí"
+        android:textColor="@color/sage_green"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+</LinearLayout>
