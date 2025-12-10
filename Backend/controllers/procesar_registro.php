@@ -25,7 +25,7 @@ if ($checkDAO->verificarUsuario($username)) {
 }
 
 
-$usuario = new Usuario(null, $username, $password, $nombre, $email);
+$usuario = new Usuario($username, $password, $nombre, $email);
 $res = $usuarioDAO->registrarUsuario($usuario);
 
 if ($res) {

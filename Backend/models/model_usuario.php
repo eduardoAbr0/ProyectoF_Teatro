@@ -7,9 +7,8 @@ class Usuario
     private $nombre;
     private $email;
 
-    public function __construct($id_usuario, $username, $password, $nombre, $email)
+    public function __construct($username, $password, $nombre, $email)
     {
-        $this->id_usuario = $id_usuario;
         $this->username = $username;
         $this->password = $password;
         $this->nombre = $nombre;

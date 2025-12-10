@@ -106,6 +106,10 @@ function eliminarObra(id) {
     const newBtn = btnConfirmar.cloneNode(true);
     btnConfirmar.parentNode.replaceChild(newBtn, btnConfirmar);
 
+    const modalElement = document.getElementById("modalEliminarConfirmar");
+    const modalConfirmacion = new bootstrap.Modal(modalElement);
+
+    modalConfirmacion.show();
     newBtn.addEventListener("click", () => {
         fetch("/Backend/controllers/procesar_baja_obra.php", {
             method: "DELETE",
@@ -127,9 +131,9 @@ function eliminarObra(id) {
                 console.error("Error:", error);
                 mostrarToast("Error al eliminar obra", "error");
             });
-        modalConfirmacion.hide();
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        modalInstance.hide();
     });
-
 }
 
 function modificar(event) {
